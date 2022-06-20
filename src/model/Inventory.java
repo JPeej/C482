@@ -31,34 +31,52 @@ public class Inventory {
     }
 
     public static ObservableList<Part> lookupPart(String partName){
+        ObservableList<Part> filteredPartList = FXCollections.observableArrayList();
 
+        for (Part part : allParts)
+            if (part.getName().contains(partName))
+                filteredPartList.add(part);
+
+        if (!(filteredPartList.isEmpty()))
+            return filteredPartList;
+        else
+            return allParts;
     }
 
     public static ObservableList<Product> lookupProduct(String productName){
+        ObservableList<Product> filteredProductList = FXCollections.observableArrayList();
 
+        for (Product product : allProducts)
+            if (product.getName().contains(productName))
+                filteredProductList.add(product);
+
+        if (!(filteredProductList.isEmpty()))
+            return filteredProductList;
+        else
+            return allProducts;
     }
 
     public static void updatePart(int index, Part selectedPart){
-
+        allParts.set(index, selectedPart);
     }
 
-    public static void updatePart(int index, Product newProduct){
-
+    public static void updateProduct(int index, Product newProduct){
+        allProducts.set(index, newProduct);
     }
 
     public static boolean deletePart(Part selectedPart){
-
+        return allParts.remove(selectedPart);
     }
 
     public static boolean deleteProduct(Product selectedProduct){
-
+        return allProducts.remove(selectedProduct);
     }
 
     public static ObservableList<Part> getAllParts(){
-
+        return allParts;
     }
 
     public static ObservableList<Product> getAllProducts(){
-
+        return allProducts;
     }
 }
