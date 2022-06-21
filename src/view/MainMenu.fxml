@@ -54,6 +54,6 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <Button layoutX="811.0" layoutY="285.0" mnemonicParsing="false" text="Exit" />
+      <Button layoutX="811.0" layoutY="285.0" mnemonicParsing="false" prefWidth="52.0" text="Exit" />
    </children>
 </AnchorPane>
