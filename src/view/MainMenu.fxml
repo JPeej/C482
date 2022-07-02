@@ -10,41 +10,41 @@
       <AnchorPane layoutX="35.0" layoutY="38.0" prefHeight="230.0" prefWidth="375.0">
          <children>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="230.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="2.0" width="375.0" />
-            <TextField alignment="CENTER" layoutX="186.0" layoutY="14.0" prefHeight="26.0" prefWidth="177.5" promptText="Search by Part ID or Name" />
+            <TextField fx:id="partSearchBar" alignment="CENTER" layoutX="186.0" layoutY="14.0" prefHeight="26.0" prefWidth="177.5" promptText="Search by Part ID or Name" />
             <Label layoutX="14.0" layoutY="17.0" text="Parts">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font></Label>
-            <Button layoutX="187.0" layoutY="195.0" mnemonicParsing="false" prefWidth="52.0" text="Add" />
-            <Button layoutX="250.0" layoutY="195.0" mnemonicParsing="false" prefWidth="54.0" text="Modify" />
-            <Button layoutX="313.0" layoutY="195.0" mnemonicParsing="false" prefWidth="52.0" text="Delete" />
-            <TableView layoutX="10.0" layoutY="46.0" prefHeight="142.0" prefWidth="355.0">
+            <Button fx:id="partAddButton" layoutX="187.0" layoutY="195.0" mnemonicParsing="false" prefWidth="52.0" text="Add" />
+            <Button fx:id="partModifyButton" layoutX="250.0" layoutY="195.0" mnemonicParsing="false" prefWidth="54.0" text="Modify" />
+            <Button fx:id="partDeleteButton" layoutX="313.0" layoutY="195.0" mnemonicParsing="false" prefWidth="52.0" text="Delete" />
+            <TableView fx:id="partTableView" layoutX="10.0" layoutY="46.0" prefHeight="142.0" prefWidth="355.0">
               <columns>
-                <TableColumn prefWidth="88.75" text="Part ID" />
-                <TableColumn prefWidth="88.75" text="Part Name" />
-                  <TableColumn prefWidth="88.75" text="Stock" />
-                  <TableColumn prefWidth="88.75" text="Price per Unit" />
+                <TableColumn fx:id="partIdCol" prefWidth="88.75" text="Part ID" />
+                <TableColumn fx:id="partNameCol" prefWidth="88.75" text="Part Name" />
+                  <TableColumn fx:id="partStockCol" prefWidth="88.75" text="Stock" />
+                  <TableColumn fx:id="partPriceCol" prefWidth="88.75" text="Price per Unit" />
               </columns>
             </TableView>
          </children></AnchorPane>
       <AnchorPane layoutX="485.0" layoutY="38.0" prefHeight="230.0" prefWidth="375.0">
          <children>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="230.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="2.0" width="375.0" />
-            <TextField alignment="CENTER" layoutX="188.0" layoutY="14.0" prefWidth="177.5" promptText="Search by Product ID or Name" />
+            <TextField fx:id="productSearchBar" alignment="CENTER" layoutX="188.0" layoutY="14.0" prefWidth="177.5" promptText="Search by Product ID or Name" />
             <Label layoutX="14.0" layoutY="17.0" text="Products">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <Button layoutX="187.0" layoutY="195.0" mnemonicParsing="false" prefWidth="52.0" text="Add" />
-            <Button layoutX="250.0" layoutY="195.0" mnemonicParsing="false" prefWidth="54.0" text="Modify" />
-            <Button layoutX="313.0" layoutY="195.0" mnemonicParsing="false" prefWidth="52.0" text="Delete" />
-            <TableView layoutX="10.0" layoutY="46.0" prefHeight="142.0" prefWidth="355.0">
+            <Button fx:id="productAddButton" layoutX="187.0" layoutY="195.0" mnemonicParsing="false" prefWidth="52.0" text="Add" />
+            <Button fx:id="productModifyButton" layoutX="250.0" layoutY="195.0" mnemonicParsing="false" prefWidth="54.0" text="Modify" />
+            <Button fx:id="productDeleteButton" layoutX="313.0" layoutY="195.0" mnemonicParsing="false" prefWidth="52.0" text="Delete" />
+            <TableView fx:id="productTableView" layoutX="10.0" layoutY="46.0" prefHeight="142.0" prefWidth="355.0">
                <columns>
-                  <TableColumn prefWidth="88.75" text="Product ID" />
-                  <TableColumn prefWidth="88.75" text="Product Name" />
-                  <TableColumn prefWidth="88.75" text="Stock" />
-                  <TableColumn prefWidth="88.75" text="Price per Unit" />
+                  <TableColumn fx:id="productIdCol" prefWidth="88.75" text="Product ID" />
+                  <TableColumn fx:id="productNameCol" prefWidth="88.75" text="Product Name" />
+                  <TableColumn fx:id="productStockCol" prefWidth="88.75" text="Stock" />
+                  <TableColumn fx:id="productPriceCol" prefWidth="88.75" text="Price per Unit" />
                </columns>
             </TableView>
          </children>
@@ -54,6 +54,6 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <Button layoutX="811.0" layoutY="285.0" mnemonicParsing="false" prefWidth="52.0" text="Exit" />
+      <Button fx:id="exitProgramButton" layoutX="811.0" layoutY="285.0" mnemonicParsing="false" prefWidth="52.0" text="Exit" />
    </children>
 </AnchorPane>
