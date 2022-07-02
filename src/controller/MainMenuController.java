@@ -1,31 +1,19 @@
 package controller;
 
-import javafx.fxml.Initializable;
 import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
+import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
+import javafx.fxml.Initializable;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TableColumn;
 
 public class MainMenuController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
     }
-
-    @FXML
-    private Button exitProgramButton;
-
-    @FXML
-    private Button partAddButton;
-
-    @FXML
-    private Button partModifyButton;
-
-    @FXML
-    private Button partDeleteButton;
 
     @FXML
     private TableView<?> partTableView;
@@ -46,15 +34,6 @@ public class MainMenuController implements Initializable {
     private TextField partSearchBar;
 
     @FXML
-    private Button productAddButton;
-
-    @FXML
-    private Button productModifyButton;
-
-    @FXML
-    private Button productDeleteButton;
-
-    @FXML
     private TableView<?> productTableView;
 
     @FXML
@@ -72,7 +51,38 @@ public class MainMenuController implements Initializable {
     @FXML
     private TextField productSearchBar;
 
+    @FXML
+    void onActionAddPart(ActionEvent event) {
 
+    }
 
+    @FXML
+    void onActionModifyPart(ActionEvent event) {
 
+    }
+
+    @FXML
+    void onActionDeletePart(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onActionAddProduct(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onActionModifyProduct(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onActionDeleteProduct(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onActionExitProgram(ActionEvent event) {
+
+    }
 }

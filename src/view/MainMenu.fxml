@@ -15,9 +15,9 @@
                <font>
                   <Font name="System Bold" size="14.0" />
                </font></Label>
-            <Button fx:id="partAddButton" layoutX="187.0" layoutY="195.0" mnemonicParsing="false" prefWidth="52.0" text="Add" />
-            <Button fx:id="partModifyButton" layoutX="250.0" layoutY="195.0" mnemonicParsing="false" prefWidth="54.0" text="Modify" />
-            <Button fx:id="partDeleteButton" layoutX="313.0" layoutY="195.0" mnemonicParsing="false" prefWidth="52.0" text="Delete" />
+            <Button layoutX="187.0" layoutY="195.0" mnemonicParsing="false" onAction="#onActionAddPart" prefWidth="52.0" text="Add" />
+            <Button layoutX="250.0" layoutY="195.0" mnemonicParsing="false" onAction="#onActionModifyPart" prefWidth="54.0" text="Modify" />
+            <Button layoutX="313.0" layoutY="195.0" mnemonicParsing="false" onAction="#onActionDeletePart" prefWidth="52.0" text="Delete" />
             <TableView fx:id="partTableView" layoutX="10.0" layoutY="46.0" prefHeight="142.0" prefWidth="355.0">
               <columns>
                 <TableColumn fx:id="partIdCol" prefWidth="88.75" text="Part ID" />
@@ -36,9 +36,9 @@
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <Button fx:id="productAddButton" layoutX="187.0" layoutY="195.0" mnemonicParsing="false" prefWidth="52.0" text="Add" />
-            <Button fx:id="productModifyButton" layoutX="250.0" layoutY="195.0" mnemonicParsing="false" prefWidth="54.0" text="Modify" />
-            <Button fx:id="productDeleteButton" layoutX="313.0" layoutY="195.0" mnemonicParsing="false" prefWidth="52.0" text="Delete" />
+            <Button layoutX="187.0" layoutY="195.0" mnemonicParsing="false" onAction="#onActionAddProduct" prefWidth="52.0" text="Add" />
+            <Button layoutX="250.0" layoutY="195.0" mnemonicParsing="false" onAction="#onActionModifyProduct" prefWidth="54.0" text="Modify" />
+            <Button layoutX="313.0" layoutY="195.0" mnemonicParsing="false" onAction="#onActionDeleteProduct" prefWidth="52.0" text="Delete" />
             <TableView fx:id="productTableView" layoutX="10.0" layoutY="46.0" prefHeight="142.0" prefWidth="355.0">
                <columns>
                   <TableColumn fx:id="productIdCol" prefWidth="88.75" text="Product ID" />
@@ -54,6 +54,6 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <Button fx:id="exitProgramButton" layoutX="811.0" layoutY="285.0" mnemonicParsing="false" prefWidth="52.0" text="Exit" />
+      <Button layoutX="811.0" layoutY="285.0" mnemonicParsing="false" onAction="#onActionExitProgram" prefWidth="52.0" text="Exit" />
    </children>
 </AnchorPane>
