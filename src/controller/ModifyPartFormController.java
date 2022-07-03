@@ -58,8 +58,8 @@ public class ModifyPartFormController implements Initializable {
     }
 
     @FXML
-    void onActionSavePart(ActionEvent event) {
-
+    void onActionSavePart(ActionEvent event) throws IOException {
+        nav.button(event, "MainMenu");
     }
 
     @FXML

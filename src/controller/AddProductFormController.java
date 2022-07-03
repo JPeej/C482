@@ -75,8 +75,8 @@ public class AddProductFormController implements Initializable {
     }
 
     @FXML
-    void onActionSaveProduct(ActionEvent event) {
-
+    void onActionSaveProduct(ActionEvent event) throws IOException {
+        nav.button(event, "MainMenu");
     }
 
     @Override
