@@ -1,11 +1,14 @@
 package controller;
 
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextField;
 import javafx.fxml.Initializable;
 import javafx.event.ActionEvent;
 
 import java.io.IOException;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import java.net.URL;
@@ -66,7 +69,7 @@ public class ModifyProductFormController implements Initializable {
 
     @FXML
     void onActionCancel(ActionEvent event) throws IOException {
-        nav.button(event, "MainMenu");
+        nav.cancel(event, "MainMenu");
     }
 
     @FXML

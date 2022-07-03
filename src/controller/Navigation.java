@@ -4,10 +4,13 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Optional;
 
 public class Navigation {
 
@@ -24,5 +27,13 @@ public class Navigation {
         stage.setTitle(formLocation);
         stage.setScene(new Scene(scene));
         stage.show();
+    }
+
+    public void cancel(ActionEvent event, String formLocation) throws IOException {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "All changes will be cleared and not saved, do you want to continue?");
+        Optional<ButtonType> result = alert.showAndWait();
+        if(result.get() == ButtonType.OK){
+            button(event, "MainMenu");
+        }
     }
 }

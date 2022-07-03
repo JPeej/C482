@@ -1,13 +1,11 @@
 package controller;
 
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.ToggleGroup;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.fxml.Initializable;
 import javafx.event.ActionEvent;
 
 import java.io.IOException;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import java.net.URL;
@@ -64,7 +62,7 @@ public class ModifyPartFormController implements Initializable {
 
     @FXML
     void onActionCancel(ActionEvent event) throws IOException {
-        nav.button(event, "MainMenu");
+        nav.cancel(event, "MainMenu");
     }
 
     @Override
