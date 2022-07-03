@@ -20,6 +20,8 @@ public class Navigation {
         String location = view.concat(formLocation.concat(fxml));
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource(location));
+        formLocation = formLocation.replaceAll("(\\p{Ll})(\\p{Lu})","$1 $2");
+        stage.setTitle(formLocation);
         stage.setScene(new Scene(scene));
         stage.show();
     }

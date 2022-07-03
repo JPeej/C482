@@ -5,16 +5,11 @@ import java.net.URL;
 import javafx.fxml.FXML;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Stage;
 import model.Inventory;
 import model.Part;
 
@@ -65,8 +60,8 @@ public class MainMenuController implements Initializable {
     }
 
     @FXML
-    void onActionModifyPart(ActionEvent event) {
-
+    void onActionModifyPart(ActionEvent event) throws IOException {
+        nav.button(event, "ModifyPartForm");
     }
 
     @FXML
@@ -75,13 +70,13 @@ public class MainMenuController implements Initializable {
     }
 
     @FXML
-    void onActionAddProduct(ActionEvent event) {
-
+    void onActionAddProduct(ActionEvent event) throws IOException {
+        nav.button(event, "AddProductForm");
     }
 
     @FXML
-    void onActionModifyProduct(ActionEvent event) {
-
+    void onActionModifyProduct(ActionEvent event) throws IOException {
+        nav.button(event, "ModifyProductForm");
     }
 
     @FXML
