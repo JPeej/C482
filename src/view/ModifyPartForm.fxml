@@ -33,7 +33,7 @@
                     <padding>
                         <Insets left="40.0" />
                     </padding></Label>
-                <TextField fx:id="partIdTxt" editable="false" prefHeight="25.6" GridPane.columnIndex="1">
+                <TextField fx:id="partIdTxt" disable="true" editable="false" prefHeight="25.6" GridPane.columnIndex="1">
                     <font>
                         <Font size="11.0" />
                     </font></TextField>
