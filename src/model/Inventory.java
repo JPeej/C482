@@ -124,4 +124,20 @@ public class Inventory {
     public static ObservableList<Product> getAllProducts(){
         return allProducts;
     }
+
+    //The following two methods are used for adding test data.
+
+    static {
+        addTestData();
+    }
+
+    public static void addTestData(){
+        InHouse bolt = new InHouse(1, "Bolt", 1.25, 10, 5, 15, 19);
+        Inventory.addPart(bolt);
+        Outsourced pipe = new Outsourced(2, "Pipe", 10.00, 3, 1, 5, "Pipes-R-Us");
+        Inventory.addPart(pipe);
+        InHouse bracket = new InHouse(3, "Bracket", 5.00, 7, 3, 11, 10);
+        Inventory.addPart((bracket));
+    }
+
 }

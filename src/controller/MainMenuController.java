@@ -8,15 +8,17 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.cell.PropertyValueFactory;
+import model.InHouse;
+import model.Inventory;
+import model.Outsourced;
+import model.Part;
+
 
 public class MainMenuController implements Initializable {
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-    }
-
     @FXML
-    private TableView<?> partTableView;
+    private TableView<Part> partTableView;
 
     @FXML
     private TableColumn<?, ?> partIdCol;
@@ -83,6 +85,16 @@ public class MainMenuController implements Initializable {
 
     @FXML
     void onActionExitProgram(ActionEvent event) {
+
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        partTableView.setItems(Inventory.getAllParts());
+        partIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+        partNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+        partStockCol.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        partPriceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
 
     }
 }
