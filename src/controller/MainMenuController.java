@@ -1,21 +1,27 @@
 package controller;
 
+import java.io.IOException;
 import java.net.URL;
 import javafx.fxml.FXML;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
-import model.InHouse;
+import javafx.stage.Stage;
 import model.Inventory;
-import model.Outsourced;
 import model.Part;
 
 
 public class MainMenuController implements Initializable {
+
+    Navigation nav = new Navigation();
 
     @FXML
     private TableView<Part> partTableView;
@@ -54,8 +60,8 @@ public class MainMenuController implements Initializable {
     private TextField productSearchBar;
 
     @FXML
-    void onActionAddPart(ActionEvent event) {
-
+    void onActionAddPart(ActionEvent event) throws IOException {
+        nav.button(event, "AddPartForm");
     }
 
     @FXML
