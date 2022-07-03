@@ -4,11 +4,15 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextField;
 import javafx.fxml.Initializable;
 import javafx.event.ActionEvent;
+
+import java.io.IOException;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import java.net.URL;
 
 public class AddProductFormController implements Initializable {
+
+    Navigation nav = new Navigation();
 
     @FXML
     private TableColumn<?, ?> allPartIdCol;
@@ -61,8 +65,8 @@ public class AddProductFormController implements Initializable {
     }
 
     @FXML
-    void onActionCancel(ActionEvent event) {
-
+    void onActionCancel(ActionEvent event) throws IOException {
+        nav.button(event, "MainMenu");
     }
 
     @FXML

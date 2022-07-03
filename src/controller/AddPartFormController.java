@@ -6,11 +6,15 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Label;
 import javafx.fxml.Initializable;
 import javafx.event.ActionEvent;
+
+import java.io.IOException;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import java.net.URL;
 
 public class AddPartFormController implements Initializable {
+
+    Navigation nav = new Navigation();
 
     private String partMutableLabel;
     private RadioButton inHouse;
@@ -56,8 +60,8 @@ public class AddPartFormController implements Initializable {
     }
 
     @FXML
-    void onActionCancel(ActionEvent event) {
-
+    void onActionCancel(ActionEvent event) throws IOException {
+        nav.button(event, "MainMenu");
     }
 
     @Override
