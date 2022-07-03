@@ -86,7 +86,7 @@ public class MainMenuController implements Initializable {
 
     @FXML
     void onActionExitProgram(ActionEvent event) {
-
+        System.exit(0);
     }
 
     @Override
