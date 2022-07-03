@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.IOException;
 import java.net.URL;
 import javafx.fxml.FXML;
 import java.util.ResourceBundle;
@@ -9,13 +10,13 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
-import model.InHouse;
 import model.Inventory;
-import model.Outsourced;
 import model.Part;
 
 
 public class MainMenuController implements Initializable {
+
+    Navigation nav = new Navigation();
 
     @FXML
     private TableView<Part> partTableView;
@@ -54,13 +55,13 @@ public class MainMenuController implements Initializable {
     private TextField productSearchBar;
 
     @FXML
-    void onActionAddPart(ActionEvent event) {
-
+    void onActionAddPart(ActionEvent event) throws IOException {
+        nav.button(event, "AddPartForm");
     }
 
     @FXML
-    void onActionModifyPart(ActionEvent event) {
-
+    void onActionModifyPart(ActionEvent event) throws IOException {
+        nav.button(event, "ModifyPartForm");
     }
 
     @FXML
@@ -69,13 +70,13 @@ public class MainMenuController implements Initializable {
     }
 
     @FXML
-    void onActionAddProduct(ActionEvent event) {
-
+    void onActionAddProduct(ActionEvent event) throws IOException {
+        nav.button(event, "AddProductForm");
     }
 
     @FXML
-    void onActionModifyProduct(ActionEvent event) {
-
+    void onActionModifyProduct(ActionEvent event) throws IOException {
+        nav.button(event, "ModifyProductForm");
     }
 
     @FXML
@@ -85,7 +86,7 @@ public class MainMenuController implements Initializable {
 
     @FXML
     void onActionExitProgram(ActionEvent event) {
-
+        System.exit(0);
     }
 
     @Override
