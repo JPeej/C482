@@ -12,6 +12,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
+import model.Product;
 
 /** Controls user input to the main menu screen.*/
 public class MainMenuController implements Initializable {
@@ -22,34 +23,34 @@ public class MainMenuController implements Initializable {
     private TableView<Part> partTableView;
 
     @FXML
-    private TableColumn<?, ?> partIdCol;
+    private TableColumn<Part, Integer> partIdCol;
 
     @FXML
-    private TableColumn<?, ?> partNameCol;
+    private TableColumn<Part, String> partNameCol;
 
     @FXML
-    private TableColumn<?, ?> partStockCol;
+    private TableColumn<Part, Integer> partStockCol;
 
     @FXML
-    private TableColumn<?, ?> partPriceCol;
+    private TableColumn<Part, Double> partPriceCol;
 
     @FXML
     private TextField partSearchBar;
 
     @FXML
-    private TableView<?> productTableView;
+    private TableView<Product> productTableView;
 
     @FXML
-    private TableColumn<?, ?> productIdCol;
+    private TableColumn<Product, Integer> productIdCol;
 
     @FXML
-    private TableColumn<?, ?> productNameCol;
+    private TableColumn<Product, String> productNameCol;
 
     @FXML
-    private TableColumn<?, ?> productStockCol;
+    private TableColumn<Product, Integer> productStockCol;
 
     @FXML
-    private TableColumn<?, ?> productPriceCol;
+    private TableColumn<Product, Double> productPriceCol;
 
     @FXML
     private TextField productSearchBar;
@@ -123,9 +124,8 @@ public class MainMenuController implements Initializable {
         System.exit(0);
     }
 
-    /** Initializes controller for use once root element has been set.
-     * Override for Initializable class initialize method.
-     * First method called for controller when screen is loaded.
+    /** Initializes controller for use once a main menu screen is instantiated.
+     * Gets all objects for both table views, parses object data, and sets data to appropriate column.
      * @param url location used for the root to find relative paths
      * @param resourceBundle resources to find root object
      */
@@ -136,6 +136,12 @@ public class MainMenuController implements Initializable {
         partNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         partStockCol.setCellValueFactory(new PropertyValueFactory<>("stock"));
         partPriceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
+
+        productTableView.setItems(Inventory.getAllProducts());
+        productIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+        productNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+        productStockCol.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        productPriceCol.setCellValueFactory(new PropertyValueFactory<>(""));
 
     }
 }
