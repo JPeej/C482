@@ -1,6 +1,6 @@
 package model;
 
-/** An Inhouse object that extends the Part object, part made in house.*/
+/** An Inhouse part object that extends the Part abstract object, part made in house.*/
 public class InHouse extends Part{
 
     private int machineId;
