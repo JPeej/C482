@@ -1,6 +1,7 @@
 package controller;
 
 import java.net.URL;
+import model.Inventory;
 import javafx.fxml.FXML;
 import java.io.IOException;
 import javafx.scene.control.*;
@@ -54,6 +55,13 @@ public class AddPartFormController implements Initializable {
 
     @FXML
     void onActionSavePart(ActionEvent event) throws IOException {
+        int id  = Inventory.populatePartId();
+        String name = partNameTxt.getText();
+        double price = Double.parseDouble(partPriceTxt.getText());
+        int stock = Integer.parseInt(partInvTxt.getText());
+        int min = Integer.parseInt(partMinTxt.getText());
+        int max = Integer.parseInt(partMaxTxt.getText());
+
         nav.button(event, "MainMenu");
     }
 
