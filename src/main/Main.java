@@ -1,16 +1,20 @@
 package main;
 
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import model.InHouse;
-import model.Inventory;
-import model.Outsourced;
+import javafx.scene.Parent;
+import javafx.fxml.FXMLLoader;
+import javafx.application.Application;
 
+/** Main class for program.*/
 public class Main extends Application {
 
+    /** Start life cycle method of JavaFX.
+     * Sets root via location of MainMenu.fxml
+     * Creates initial JavaFX stage.
+     * @param primaryStage Stage object that will be presented upon program start
+     * @throws Exception
+     */
     @Override
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/view/MainMenu.fxml"));
