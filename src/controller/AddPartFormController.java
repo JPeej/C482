@@ -1,15 +1,15 @@
 package controller;
 
-import model.InHouse;
-import model.Outsourced;
 import model.Part;
+import java.util.*;
 import java.net.URL;
+import model.InHouse;
 import model.Inventory;
+import model.Outsourced;
 import javafx.fxml.FXML;
 import java.io.IOException;
 import javafx.scene.control.*;
 import javafx.event.ActionEvent;
-import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
 
 
@@ -48,36 +48,55 @@ public class AddPartFormController implements Initializable {
     @FXML
     private TextField partConstructText;
 
+    /** Sets the final user input text field's label to "MachineID".
+     * Upon selecting the In House radio the label will change to "MachineID".
+     * @param event ActionEvent object holding information on the button pressed
+     */
     @FXML
     void onActionInHouse(ActionEvent event) {
         partConstructLabel.setText("MachineID");
     }
 
+    /** Sets the final user input text field's label to "Company Name".
+     * Upon selecting the Outsourced radio the label will change to "Company Name".
+     * @param event ActionEvent object holding information on the button pressed
+     */
     @FXML
     void onActionOutsourced(ActionEvent event) {
         partConstructLabel.setText("Company Name");
     }
 
+    /** Event handler for save button on add part menu.
+     * Parses data, checks data types,  creates part, and saves part to allParts list.
+     * @param event ActionEvent object holding information on the button pressed
+     * @throws IOException
+     */
     @FXML
     void onActionSavePart(ActionEvent event) throws IOException {
-        int id  = Inventory.populatePartId();
-        String name = partNameTxt.getText();
-        double price = Double.parseDouble(partPriceTxt.getText());
-        int stock = Integer.parseInt(partInvTxt.getText());
-        int min = Integer.parseInt(partMinTxt.getText());
-        int max = Integer.parseInt(partMaxTxt.getText());
+        try {
+            int id  = Inventory.populatePartId();
+            String name = partNameTxt.getText();
+            double price = Double.parseDouble(partPriceTxt.getText());
+            int stock = Integer.parseInt(partInvTxt.getText());
+            int min = Integer.parseInt(partMinTxt.getText());
+            int max = Integer.parseInt(partMaxTxt.getText());
 
-        if(inHouseRadio.isSelected()) {
-            int machineId = Integer.parseInt(partConstructText.getText());
-            Part newPart = new InHouse(id, name, price, stock, min, max, machineId);
-            Inventory.addPart(newPart);
-        } else if(outsourcedRadio.isSelected()) {
-            String companyName = partConstructText.getText();
-            Part newPart = new Outsourced(id, name, price, stock, min, max, companyName);
-            Inventory.addPart(newPart);
+            if(inHouseRadio.isSelected()) {
+                int machineId = Integer.parseInt(partConstructText.getText());
+                Part newPart = new InHouse(id, name, price, stock, min, max, machineId);
+                Inventory.addPart(newPart);
+            } else if(outsourcedRadio.isSelected()) {
+                String companyName = partConstructText.getText();
+                Part newPart = new Outsourced(id, name, price, stock, min, max, companyName);
+                Inventory.addPart(newPart);
+            }
+
+            nav.button(event, "MainMenu");
+        } catch (NumberFormatException e) {
+
         }
 
-        nav.button(event, "MainMenu");
+
     }
 
     /** Event handler for cancel button.
@@ -102,4 +121,5 @@ public class AddPartFormController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
     }
+
 }
