@@ -6,8 +6,8 @@ import javafx.collections.ObservableList;
 /** Manages all Parts and Products within the company. */
 public class Inventory {
 
-    private static int partId = 1;
-    private static int productId = 2;
+    private static int partId = -1;
+    private static int productId = 0;
     private static ObservableList<Part> allParts = FXCollections.observableArrayList();
     private static ObservableList<Product> allProducts = FXCollections.observableArrayList();
 
@@ -16,7 +16,8 @@ public class Inventory {
      * @return int partId for use in part creation
      */
     public static int populatePartId() {
-        return partId++;
+        partId += 2;
+        return partId;
     }
 
     /** Gets the static productId field to autopopulate product Ids.
@@ -24,6 +25,7 @@ public class Inventory {
      * @return int productId for use in product creation
      */
     public static int populateProductId() {
+        productId += 2;
         return productId++;
     }
 

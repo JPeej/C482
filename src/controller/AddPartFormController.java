@@ -20,31 +20,20 @@ public class AddPartFormController implements Initializable {
 
     @FXML
     private RadioButton inHouseRadio;
-
     @FXML
     private RadioButton outsourcedRadio;
-
     @FXML
     private TextField partInvTxt;
-
     @FXML
     private TextField partMaxTxt;
-
     @FXML
     private TextField partMinTxt;
-
     @FXML
     private TextField partNameTxt;
-
     @FXML
     private TextField partPriceTxt;
-
-    @FXML
-    private ToggleGroup partRadioGroup;
-
     @FXML
     private Label partConstructLabel;
-
     @FXML
     private TextField partConstructText;
 
@@ -70,9 +59,12 @@ public class AddPartFormController implements Initializable {
      * Parses data, checks data types,  creates part, and saves part to allParts list.
      * @param event ActionEvent object holding information on the button pressed
      * @throws IOException
+     * @throws ArithmeticException
+     * @throws NumberFormatException
+     * @throws Exception
      */
     @FXML
-    void onActionSavePart(ActionEvent event) throws IOException {
+    void onActionSavePart(ActionEvent event) throws IOException, ArithmeticException, NumberFormatException, Exception {
         try {
             int stock = Integer.parseInt(partInvTxt.getText());
             int min = Integer.parseInt(partMinTxt.getText());
@@ -116,8 +108,6 @@ public class AddPartFormController implements Initializable {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Please enter a name and company name (if prompted) for the part.");
             alert.showAndWait();
         }
-
-
     }
 
     /** Event handler for cancel button.
