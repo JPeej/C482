@@ -79,7 +79,7 @@ public class AddProductFormController implements Initializable {
      */
     @FXML
     void onActionCancel(ActionEvent event) throws IOException {
-        nav.cancel(event, "MainMenu");
+        nav.cancel(event);
     }
 
     @FXML

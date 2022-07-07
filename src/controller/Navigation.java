@@ -43,10 +43,9 @@ public class Navigation {
      * OK continues to Main Menu and cancel keeps user on current screen.
      * Uses button method to handle screen change.
      * @param event ActionEvent object holding information on the button pressed
-     * @param formLocation string for fxml file name
      * @throws IOException
      */
-    public void cancel(ActionEvent event, String formLocation) throws IOException {
+    public void cancel(ActionEvent event) throws IOException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "All changes will be cleared and not saved, do you want to continue?");
         Optional<ButtonType> result = alert.showAndWait();
         if(result.get() == ButtonType.OK){

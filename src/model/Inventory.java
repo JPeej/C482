@@ -6,13 +6,33 @@ import javafx.collections.ObservableList;
 /** Manages all Parts and Products within the company. */
 public class Inventory {
 
+    private static int partId = -1;
+    private static int productId = 0;
     private static ObservableList<Part> allParts = FXCollections.observableArrayList();
     private static ObservableList<Product> allProducts = FXCollections.observableArrayList();
+
+    /** Gets the static partId field to autopopulate part Ids.
+     * Post increments the static partId field.
+     * @return int partId for use in part creation
+     */
+    public static int populatePartId() {
+        partId += 2;
+        return partId;
+    }
+
+    /** Gets the static productId field to autopopulate product Ids.
+     * Post increments the static productId field.
+     * @return int productId for use in product creation
+     */
+    public static int populateProductId() {
+        productId += 2;
+        return productId++;
+    }
 
     /** Add a Part to the allParts list.
      * allParts manages all Parts within inventory.
      * @param newPart Part to add*/
-    public static void addPart(Part newPart){
+    public static void addPart(Part newPart) {
         allParts.add(newPart);
     }
 
