@@ -20,7 +20,7 @@ public class MainMenuController implements Initializable {
     Navigation nav = new Navigation();
 
     @FXML
-    private TableView<Part> partTableView;
+    protected static TableView<Part> partTableView;
 
     @FXML
     private TableColumn<Part, Integer> partIdCol;
@@ -64,7 +64,7 @@ public class MainMenuController implements Initializable {
      */
     @FXML
     void onActionAddPart(ActionEvent event) throws IOException {
-        nav.button(event, "AddPartForm");
+        nav.navigate(event, "AddPartForm");
     }
 
     /** Event handler for modify part button.
@@ -76,7 +76,7 @@ public class MainMenuController implements Initializable {
      */
     @FXML
     void onActionModifyPart(ActionEvent event) throws IOException {
-        nav.button(event, "ModifyPartForm");
+        //nav.navWithData(event, "ModifyPartForm");
     }
 
 
@@ -94,7 +94,7 @@ public class MainMenuController implements Initializable {
      */
     @FXML
     void onActionAddProduct(ActionEvent event) throws IOException {
-        nav.button(event, "AddProductForm");
+        nav.navigate(event, "AddProductForm");
     }
 
     /** Event handler for modify product button.
@@ -106,7 +106,9 @@ public class MainMenuController implements Initializable {
      */
     @FXML
     void onActionModifyProduct(ActionEvent event) throws IOException {
-        nav.button(event, "ModifyProductForm");
+        nav.navigate(event, "ModifyProductForm");
+
+
     }
 
     @FXML
@@ -142,6 +144,6 @@ public class MainMenuController implements Initializable {
         productNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         productStockCol.setCellValueFactory(new PropertyValueFactory<>("stock"));
         productPriceCol.setCellValueFactory(new PropertyValueFactory<>(""));
-
     }
+
 }
