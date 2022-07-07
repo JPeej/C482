@@ -1,5 +1,8 @@
 package controller;
 
+import model.InHouse;
+import model.Outsourced;
+import model.Part;
 import java.net.URL;
 import model.Inventory;
 import javafx.fxml.FXML;
@@ -9,14 +12,17 @@ import javafx.event.ActionEvent;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
 
+
 /** Controls user input to the add part screen.*/
 public class AddPartFormController implements Initializable {
 
     Navigation nav = new Navigation();
 
-    private String partMutableLabel;
-    private RadioButton inHouse;
-    private RadioButton outSourced;
+    @FXML
+    private RadioButton inHouseRadio;
+
+    @FXML
+    private RadioButton outsourcedRadio;
 
     @FXML
     private TextField partInvTxt;
@@ -37,20 +43,19 @@ public class AddPartFormController implements Initializable {
     private ToggleGroup partRadioGroup;
 
     @FXML
-    private Label partRadioLabel;
+    private Label partConstructLabel;
 
     @FXML
-    private TextField partRadioTxt;
-
+    private TextField partConstructText;
 
     @FXML
     void onActionInHouse(ActionEvent event) {
-
+        partConstructLabel.setText("MachineID");
     }
 
     @FXML
     void onActionOutsourced(ActionEvent event) {
-
+        partConstructLabel.setText("Company Name");
     }
 
     @FXML
@@ -61,6 +66,16 @@ public class AddPartFormController implements Initializable {
         int stock = Integer.parseInt(partInvTxt.getText());
         int min = Integer.parseInt(partMinTxt.getText());
         int max = Integer.parseInt(partMaxTxt.getText());
+
+        if(inHouseRadio.isSelected()) {
+            int machineId = Integer.parseInt(partConstructText.getText());
+            Part newPart = new InHouse(id, name, price, stock, min, max, machineId);
+            Inventory.addPart(newPart);
+        } else if(outsourcedRadio.isSelected()) {
+            String companyName = partConstructText.getText();
+            Part newPart = new Outsourced(id, name, price, stock, min, max, companyName);
+            Inventory.addPart(newPart);
+        }
 
         nav.button(event, "MainMenu");
     }
@@ -87,6 +102,4 @@ public class AddPartFormController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
     }
-
-
 }
