@@ -74,26 +74,47 @@ public class AddPartFormController implements Initializable {
     @FXML
     void onActionSavePart(ActionEvent event) throws IOException {
         try {
-            int id  = Inventory.populatePartId();
-            String name = partNameTxt.getText();
-            double price = Double.parseDouble(partPriceTxt.getText());
             int stock = Integer.parseInt(partInvTxt.getText());
             int min = Integer.parseInt(partMinTxt.getText());
             int max = Integer.parseInt(partMaxTxt.getText());
+            if (stock < min || stock > max) {
+                throw new ArithmeticException();
+            }
 
-            if(inHouseRadio.isSelected()) {
+            String name = partNameTxt.getText();
+            if (name.isBlank()) {
+                throw new Exception();
+            }
+
+            double price = Double.parseDouble(partPriceTxt.getText());
+            int id  = Inventory.populatePartId();
+
+
+           if(inHouseRadio.isSelected()) {
                 int machineId = Integer.parseInt(partConstructText.getText());
                 Part newPart = new InHouse(id, name, price, stock, min, max, machineId);
                 Inventory.addPart(newPart);
             } else if(outsourcedRadio.isSelected()) {
                 String companyName = partConstructText.getText();
+                if (companyName.isBlank()) {
+                    throw new Exception();
+                }
+
                 Part newPart = new Outsourced(id, name, price, stock, min, max, companyName);
                 Inventory.addPart(newPart);
             }
 
             nav.button(event, "MainMenu");
-        } catch (NumberFormatException e) {
 
+        } catch (NumberFormatException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Please enter numeric values in the following fields: Inv, Price, Max, Min, and MachineID (if prompted).");
+            alert.showAndWait();
+        } catch (ArithmeticException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Inventory stock amount must be between the min and max values.");
+            alert.showAndWait();
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Please enter a name and company name (if prompted) for the part.");
+            alert.showAndWait();
         }
 
 
@@ -109,7 +130,7 @@ public class AddPartFormController implements Initializable {
      */
     @FXML
     void onActionCancel(ActionEvent event) throws IOException {
-        nav.cancel(event, "MainMenu");
+        nav.cancel(event);
     }
 
     /** Initializes controller for use once root element has been set.
