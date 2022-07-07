@@ -33,9 +33,9 @@
                <padding>
                   <Insets left="40.0" />
                </padding></Label>
-            <TextField alignment="CENTER" disable="true" editable="false" prefHeight="25.6" promptText="Auto Gen - Disabled" GridPane.columnIndex="1">
+            <TextField disable="true" editable="false" prefHeight="25.6" promptText="Auto Gen - Disabled" GridPane.columnIndex="1">
                <font>
-                  <Font name="System Bold" size="9.0" />
+                  <Font size="9.0" />
                </font></TextField>
             <TextField fx:id="partNameTxt" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <TextField fx:id="partInvTxt" GridPane.columnIndex="1" GridPane.rowIndex="2" />

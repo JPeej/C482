@@ -1,9 +1,6 @@
 package controller;
 
-import model.Part;
 import java.net.URL;
-import model.InHouse;
-import model.Outsourced;
 import javafx.fxml.FXML;
 import java.io.IOException;
 import javafx.scene.control.*;
@@ -16,26 +13,36 @@ public class ModifyPartFormController implements Initializable {
 
     Navigation nav = new Navigation();
 
+    private String partMutableLabel;
+    private RadioButton inHouse;
+    private RadioButton outSourced;
+
     @FXML
     private TextField partIdTxt;
+
     @FXML
     private TextField partInvTxt;
+
     @FXML
     private TextField partMaxTxt;
+
     @FXML
     private TextField partMinTxt;
+
     @FXML
     private TextField partNameTxt;
+
     @FXML
     private TextField partPriceTxt;
+
     @FXML
-    private Label partConstructLabel;
+    private ToggleGroup partRadioGroup;
+
     @FXML
-    private TextField partConstructTxt;
+    private Label partRadioLabel;
+
     @FXML
-    private RadioButton radioInHouse;
-    @FXML
-    private RadioButton radioOutsourced;
+    private TextField partRadioTxt;
 
     @FXML
     void onActionInHouse(ActionEvent event) {
@@ -62,7 +69,7 @@ public class ModifyPartFormController implements Initializable {
 
     @FXML
     void onActionSavePart(ActionEvent event) throws IOException {
-        nav.navigate(event, "MainMenu");
+        nav.button(event, "MainMenu");
     }
 
     /** Initializes controller for use once root element has been set.
@@ -73,26 +80,5 @@ public class ModifyPartFormController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
     }
-
-    public void sendPart(Part part) {
-        partIdTxt.setText(String.valueOf(part.getId()));
-        partNameTxt.setText(part.getName());
-        partInvTxt.setText(String.valueOf(part.getStock()));
-        partPriceTxt.setText(String.valueOf(part.getPrice()));
-        partMaxTxt.setText(String.valueOf(part.getMax()));
-        partMinTxt.setText(String.valueOf(part.getMin()));
-
-        if (part instanceof InHouse) {
-            partConstructLabel.setText("MachineID");
-            partConstructTxt.setText(String.valueOf(((InHouse) part).getMachineId()));
-            radioInHouse.setSelected(true);
-        } else if (part instanceof Outsourced) {
-            partConstructLabel.setText("Company Name");
-            partConstructTxt.setText(((Outsourced) part).getCompanyName());
-            radioOutsourced.setSelected(true);
-        }
-    }
-
 }

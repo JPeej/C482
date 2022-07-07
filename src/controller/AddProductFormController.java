@@ -84,7 +84,7 @@ public class AddProductFormController implements Initializable {
 
     @FXML
     void onActionSaveProduct(ActionEvent event) throws IOException {
-        nav.navigate(event, "MainMenu");
+        nav.button(event, "MainMenu");
     }
 
     /** Initializes controller for use once root element has been set.

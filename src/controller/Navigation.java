@@ -10,26 +10,12 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
-import model.Part;
-
 
 /** Handles all navigation across program.*/
 public class Navigation {
 
     Stage stage;
     Parent scene;
-
-    public String location(String formLocation) {
-        String view = "/view/";
-        String fxml = ".fxml";
-        String location = view.concat(formLocation.concat(fxml));
-        return location;
-    }
-
-    public void setTitle(String formLocation) {
-        formLocation = formLocation.replaceAll("(\\p{Ll})(\\p{Lu})","$1 $2");
-        stage.setTitle(formLocation);
-    }
 
     /** Handles navigation for all buttons, excluding cancel buttons.
      * Creates "location" string to pass into FXMLLoader.
@@ -40,33 +26,17 @@ public class Navigation {
      * @param formLocation string for fxml file name
      * @throws IOException
      */
-    public void navigate(ActionEvent event, String formLocation) throws IOException {
-        String location = location(formLocation);
+    public void button(ActionEvent event, String formLocation) throws IOException {
+        String view = "/view/";
+        String fxml = ".fxml";
+        String location = view.concat(formLocation.concat(fxml));
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource(location));
-        setTitle(formLocation);
+        formLocation = formLocation.replaceAll("(\\p{Ll})(\\p{Lu})","$1 $2");
+        stage.setTitle(formLocation);
         stage.setScene(new Scene(scene));
         stage.show();
     }
-
-    /*public void navWithData(ActionEvent event, String formLocation) throws IOException {
-        String location = location(formLocation);
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource(location));
-        loader.load();
-
-        if (formLocation.equals("ModifyPartForm")) {
-            Part selectedPart = MainMenuController.partTableView.getSelectionModel().getSelectedItem();
-            ModifyPartFormController MDFController = loader.getController();
-            MDFController.sendPart(selectedPart);
-
-        }
-        stage = (Stage)((Button)event.getSource()).getScene().getWindow();
-        Parent scene = loader.getRoot();
-        setTitle(formLocation);
-        stage.setScene(new Scene(scene));
-        stage.showAndWait();
-    }*/
 
     /** Handles navigation for cancel buttons.
      * Prompts user with confirmation as cancelling will delete all changes made.
@@ -79,7 +49,7 @@ public class Navigation {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "All changes will be cleared and not saved, do you want to continue?");
         Optional<ButtonType> result = alert.showAndWait();
         if(result.get() == ButtonType.OK){
-            navigate(event, "MainMenu");
+            button(event, "MainMenu");
         }
     }
 }
