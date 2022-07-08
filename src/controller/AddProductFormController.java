@@ -107,6 +107,9 @@ public class AddProductFormController implements Initializable {
             int id = Inventory.populateProductId();
 
             Product newProduct = new Product(id, name, price, stock, min, max);
+            for (Part associatedPart : partsTemp) {
+                newProduct.addAssociatedPart(associatedPart);
+            }
             Inventory.addProduct(newProduct);
             nav.navigate(event, "MainMenu");
 
