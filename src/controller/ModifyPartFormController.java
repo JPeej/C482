@@ -78,6 +78,9 @@ public class ModifyPartFormController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
     }
 
+    /** Parses through data of Part object to populate UI of modify part screen.
+     * @param part Part object to be parsed for populating text fields
+     */
     public void sendPart(Part part) {
         partIdTxt.setText(String.valueOf(part.getId()));
         partNameTxt.setText(part.getName());
