@@ -10,6 +10,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.cell.PropertyValueFactory;
 import model.Inventory;
 import model.Part;
 import model.Product;
@@ -119,5 +120,10 @@ public class AddProductFormController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        allPartsTableView.setItems(Inventory.getAllParts());
+        allPartIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+        allPartNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+        allPartInvCol.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        allPartPriceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
     }
 }
