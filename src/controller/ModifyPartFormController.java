@@ -38,14 +38,22 @@ public class ModifyPartFormController implements Initializable {
     @FXML
     private TextField partConstructTxt;
 
+    /** Sets the final user input text field's label to "MachineID".
+     * Upon selecting the In House radio the label will change to "MachineID".
+     * @param event ActionEvent object holding information on the button pressed
+     */
     @FXML
     void onActionInHouse(ActionEvent event) {
-
+        partConstructLabel.setText("MachineID");
     }
 
+    /** Sets the final user input text field's label to "Company Name".
+     * Upon selecting the Outsourced radio the label will change to "Company Name".
+     * @param event ActionEvent object holding information on the button pressed
+     */
     @FXML
     void onActionOutsourced(ActionEvent event) {
-
+        partConstructLabel.setText("Company Name");
     }
 
     /** Event handler for cancel button.
@@ -61,6 +69,15 @@ public class ModifyPartFormController implements Initializable {
         nav.cancel(event);
     }
 
+    /** Saves changes to part.
+     * Parses data that has been input from user.
+     * Creates new Part object with data and inserts into original Parts index in allParts.
+     * @param event ActionEvent object holding information on the button pressed
+     * @throws IOException
+     * @throws ArithmeticException
+     * @throws NumberFormatException
+     * @throws Exception
+     */
     @FXML
     void onActionSavePart(ActionEvent event)  throws IOException, ArithmeticException, NumberFormatException, Exception {
         try {
