@@ -27,37 +27,26 @@ public class MainMenuController implements Initializable {
 
     @FXML
     protected TableView<Part> partTableView;
-
     @FXML
     private TableColumn<Part, Integer> partIdCol;
-
     @FXML
     private TableColumn<Part, String> partNameCol;
-
     @FXML
     private TableColumn<Part, Integer> partStockCol;
-
     @FXML
     private TableColumn<Part, Double> partPriceCol;
-
     @FXML
     private TextField partSearchBar;
-
     @FXML
     private TableView<Product> productTableView;
-
     @FXML
     private TableColumn<Product, Integer> productIdCol;
-
     @FXML
     private TableColumn<Product, String> productNameCol;
-
     @FXML
     private TableColumn<Product, Integer> productStockCol;
-
     @FXML
     private TableColumn<Product, Double> productPriceCol;
-
     @FXML
     private TextField productSearchBar;
 
@@ -96,7 +85,6 @@ public class MainMenuController implements Initializable {
         stage.setScene(new Scene(scene));
         stage.show();
     }
-
 
     @FXML
     void onActionDeletePart(ActionEvent event) {
@@ -159,7 +147,7 @@ public class MainMenuController implements Initializable {
         productIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         productNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         productStockCol.setCellValueFactory(new PropertyValueFactory<>("stock"));
-        productPriceCol.setCellValueFactory(new PropertyValueFactory<>(""));
+        productPriceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
 
     }
 }
