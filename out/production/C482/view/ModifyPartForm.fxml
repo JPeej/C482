@@ -45,11 +45,11 @@
                 <TextField fx:id="partMinTxt" GridPane.columnIndex="3" GridPane.rowIndex="4" />
             </children>
         </GridPane>
-        <RadioButton fx:id="radioInhouse" layoutX="244.0" layoutY="54.0" mnemonicParsing="false" onAction="#onActionInHouse" selected="true" text="In-House">
+        <RadioButton fx:id="inHouseRadio" layoutX="244.0" layoutY="54.0" mnemonicParsing="false" onAction="#onActionInHouse" selected="true" text="In-House">
             <toggleGroup>
                 <ToggleGroup fx:id="partRadioGroup" />
             </toggleGroup></RadioButton>
-        <RadioButton fx:id="radioOutsourced" layoutX="332.0" layoutY="54.0" mnemonicParsing="false" onAction="#onActionOutsourced" text="Outsourced" toggleGroup="$partRadioGroup" />
+        <RadioButton fx:id="outsourcedRadio" layoutX="332.0" layoutY="54.0" mnemonicParsing="false" onAction="#onActionOutsourced" text="Outsourced" toggleGroup="$partRadioGroup" />
         <Label layoutX="25.0" layoutY="54.0" text="Add Part">
             <font>
                 <Font name="System Bold" size="12.0" />

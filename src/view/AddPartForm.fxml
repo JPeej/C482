@@ -41,7 +41,7 @@
             <TextField fx:id="partInvTxt" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <TextField fx:id="partPriceTxt" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <TextField fx:id="partMaxTxt" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <TextField fx:id="partConstructText" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <TextField fx:id="partConstructTxt" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <TextField fx:id="partMinTxt" GridPane.columnIndex="3" GridPane.rowIndex="4" />
          </children>
       </GridPane>

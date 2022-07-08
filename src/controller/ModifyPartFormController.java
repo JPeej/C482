@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
 import model.InHouse;
+import model.Inventory;
 import model.Outsourced;
 import model.Part;
 
@@ -16,9 +17,10 @@ public class ModifyPartFormController implements Initializable {
 
     Navigation nav = new Navigation();
 
-    private String partMutableLabel;
-    private RadioButton inHouse;
-    private RadioButton outSourced;
+    @FXML
+    private RadioButton inHouseRadio;
+    @FXML
+    private RadioButton outsourcedRadio;
     @FXML
     private TextField partIdTxt;
     @FXML
@@ -31,10 +33,6 @@ public class ModifyPartFormController implements Initializable {
     private TextField partNameTxt;
     @FXML
     private TextField partPriceTxt;
-    @FXML
-    private RadioButton radioInhouse;
-    @FXML
-    private RadioButton radioOutsourced;
     @FXML
     private Label partConstructLabel;
     @FXML
@@ -64,8 +62,49 @@ public class ModifyPartFormController implements Initializable {
     }
 
     @FXML
-    void onActionSavePart(ActionEvent event) throws IOException {
-        nav.navigate(event, "MainMenu");
+    void onActionSavePart(ActionEvent event)  throws IOException, ArithmeticException, NumberFormatException, Exception {
+        try {
+            int stock = Integer.parseInt(partInvTxt.getText());
+            int min = Integer.parseInt(partMinTxt.getText());
+            int max = Integer.parseInt(partMaxTxt.getText());
+            if (stock < min || stock > max) {
+                throw new ArithmeticException();
+            }
+
+            String name = partNameTxt.getText();
+            if (name.isBlank()) {
+                throw new Exception();
+            }
+
+            double price = Double.parseDouble(partPriceTxt.getText());
+            int id  = Integer.parseInt(partIdTxt.getText());
+            int index = id - 1;
+
+            if(inHouseRadio.isSelected()) {
+                int machineId = Integer.parseInt(partConstructTxt.getText());
+                Part newPart = new InHouse(id, name, price, stock, min, max, machineId);
+                Inventory.updatePart(index, newPart);
+            } else if(outsourcedRadio.isSelected()) {
+                String companyName = partConstructTxt.getText();
+                if (companyName.isBlank()) {
+                    throw new Exception();
+                }
+                Part newPart = new Outsourced(id, name, price, stock, min, max, companyName);
+                Inventory.updatePart(index, newPart);
+            }
+
+            nav.navigate(event, "MainMenu");
+
+        } catch (NumberFormatException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Please enter numeric values in the following fields: Inv, Price, Max, Min, and MachineID (if prompted).");
+            alert.showAndWait();
+        } catch (ArithmeticException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Inventory stock amount must be between the min and max values.");
+            alert.showAndWait();
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Please enter a name and company name (if prompted) for the part.");
+            alert.showAndWait();
+        }
     }
 
     /** Initializes controller for use once root element has been set.
@@ -92,13 +131,13 @@ public class ModifyPartFormController implements Initializable {
         if (part instanceof InHouse) {
             partConstructLabel.setText("MachineID");
             partConstructTxt.setText(String.valueOf(((InHouse) part).getMachineId()));
-            radioInhouse.setSelected(true);
-            radioOutsourced.setSelected(false);
+            inHouseRadio.setSelected(true);
+            outsourcedRadio.setSelected(false);
         } else if (part instanceof Outsourced) {
             partConstructLabel.setText("Company Name");
             partConstructTxt.setText(String.valueOf(((Outsourced) part).getCompanyName()));
-            radioInhouse.setSelected(false);
-            radioOutsourced.setSelected(true);
+            inHouseRadio.setSelected(false);
+            outsourcedRadio.setSelected(true);
         }
     }
 }
