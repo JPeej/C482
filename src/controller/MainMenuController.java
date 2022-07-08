@@ -86,7 +86,6 @@ public class MainMenuController implements Initializable {
         stage.show();
     }
 
-
     @FXML
     void onActionDeletePart(ActionEvent event) {
 

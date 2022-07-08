@@ -1,6 +1,9 @@
 package controller;
 
 import java.net.URL;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import java.io.IOException;
 import java.util.ResourceBundle;
@@ -20,6 +23,7 @@ public class AddProductFormController implements Initializable {
 
     Navigation nav = new Navigation();
 
+    private ObservableList<Part> partsTemp = FXCollections.observableArrayList();
     @FXML
     private TableView<Part> allPartsTableView;
     @FXML
@@ -57,7 +61,13 @@ public class AddProductFormController implements Initializable {
 
     @FXML
     void onActionAddAssocPart(ActionEvent event) {
-
+        Part selectedPart = allPartsTableView.getSelectionModel().getSelectedItem();
+        partsTemp.add(selectedPart);
+        assocPartsTableView.setItems(partsTemp);
+        assocPartIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+        assocPartInvCol.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        assocPartNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+        assocPartPriceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
     }
 
     @FXML
