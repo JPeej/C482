@@ -96,7 +96,7 @@ public class AddPartFormController implements Initializable {
                 Inventory.addPart(newPart);
             }
 
-            nav.button(event, "MainMenu");
+            nav.navigate(event, "MainMenu");
 
         } catch (NumberFormatException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Please enter numeric values in the following fields: Inv, Price, Max, Min, and MachineID (if prompted).");
