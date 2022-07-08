@@ -35,7 +35,7 @@ public class AddPartFormController implements Initializable {
     @FXML
     private Label partConstructLabel;
     @FXML
-    private TextField partConstructText;
+    private TextField partConstructTxt;
 
     /** Sets the final user input text field's label to "MachineID".
      * Upon selecting the In House radio the label will change to "MachineID".
@@ -81,13 +81,12 @@ public class AddPartFormController implements Initializable {
             double price = Double.parseDouble(partPriceTxt.getText());
             int id  = Inventory.populatePartId();
 
-
            if(inHouseRadio.isSelected()) {
-                int machineId = Integer.parseInt(partConstructText.getText());
+                int machineId = Integer.parseInt(partConstructTxt.getText());
                 Part newPart = new InHouse(id, name, price, stock, min, max, machineId);
                 Inventory.addPart(newPart);
             } else if(outsourcedRadio.isSelected()) {
-                String companyName = partConstructText.getText();
+                String companyName = partConstructTxt.getText();
                 if (companyName.isBlank()) {
                     throw new Exception();
                 }
@@ -96,7 +95,7 @@ public class AddPartFormController implements Initializable {
                 Inventory.addPart(newPart);
             }
 
-            nav.button(event, "MainMenu");
+            nav.navigate(event, "MainMenu");
 
         } catch (NumberFormatException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Please enter numeric values in the following fields: Inv, Price, Max, Min, and MachineID (if prompted).");

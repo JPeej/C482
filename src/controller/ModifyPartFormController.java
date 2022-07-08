@@ -7,51 +7,53 @@ import javafx.scene.control.*;
 import javafx.event.ActionEvent;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
+import model.InHouse;
+import model.Inventory;
+import model.Outsourced;
+import model.Part;
 
 /** Controls user input to modify part screen.*/
 public class ModifyPartFormController implements Initializable {
 
     Navigation nav = new Navigation();
 
-    private String partMutableLabel;
-    private RadioButton inHouse;
-    private RadioButton outSourced;
-
+    @FXML
+    private RadioButton inHouseRadio;
+    @FXML
+    private RadioButton outsourcedRadio;
     @FXML
     private TextField partIdTxt;
-
     @FXML
     private TextField partInvTxt;
-
     @FXML
     private TextField partMaxTxt;
-
     @FXML
     private TextField partMinTxt;
-
     @FXML
     private TextField partNameTxt;
-
     @FXML
     private TextField partPriceTxt;
-
     @FXML
-    private ToggleGroup partRadioGroup;
-
+    private Label partConstructLabel;
     @FXML
-    private Label partRadioLabel;
+    private TextField partConstructTxt;
 
-    @FXML
-    private TextField partRadioTxt;
-
+    /** Sets the final user input text field's label to "MachineID".
+     * Upon selecting the In House radio the label will change to "MachineID".
+     * @param event ActionEvent object holding information on the button pressed
+     */
     @FXML
     void onActionInHouse(ActionEvent event) {
-
+        partConstructLabel.setText("MachineID");
     }
 
+    /** Sets the final user input text field's label to "Company Name".
+     * Upon selecting the Outsourced radio the label will change to "Company Name".
+     * @param event ActionEvent object holding information on the button pressed
+     */
     @FXML
     void onActionOutsourced(ActionEvent event) {
-
+        partConstructLabel.setText("Company Name");
     }
 
     /** Event handler for cancel button.
@@ -67,9 +69,59 @@ public class ModifyPartFormController implements Initializable {
         nav.cancel(event);
     }
 
+    /** Saves changes to part.
+     * Parses data that has been input from user.
+     * Creates new Part object with data and inserts into original Parts index in allParts.
+     * @param event ActionEvent object holding information on the button pressed
+     * @throws IOException
+     * @throws ArithmeticException
+     * @throws NumberFormatException
+     * @throws Exception
+     */
     @FXML
-    void onActionSavePart(ActionEvent event) throws IOException {
-        nav.button(event, "MainMenu");
+    void onActionSavePart(ActionEvent event)  throws IOException, ArithmeticException, NumberFormatException, Exception {
+        try {
+            int stock = Integer.parseInt(partInvTxt.getText());
+            int min = Integer.parseInt(partMinTxt.getText());
+            int max = Integer.parseInt(partMaxTxt.getText());
+            if (stock < min || stock > max) {
+                throw new ArithmeticException();
+            }
+
+            String name = partNameTxt.getText();
+            if (name.isBlank()) {
+                throw new Exception();
+            }
+
+            double price = Double.parseDouble(partPriceTxt.getText());
+            int id  = Integer.parseInt(partIdTxt.getText());
+            int index = id - 1;
+
+            if(inHouseRadio.isSelected()) {
+                int machineId = Integer.parseInt(partConstructTxt.getText());
+                Part newPart = new InHouse(id, name, price, stock, min, max, machineId);
+                Inventory.updatePart(index, newPart);
+            } else if(outsourcedRadio.isSelected()) {
+                String companyName = partConstructTxt.getText();
+                if (companyName.isBlank()) {
+                    throw new Exception();
+                }
+                Part newPart = new Outsourced(id, name, price, stock, min, max, companyName);
+                Inventory.updatePart(index, newPart);
+            }
+
+            nav.navigate(event, "MainMenu");
+
+        } catch (NumberFormatException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Please enter numeric values in the following fields: Inv, Price, Max, Min, and MachineID (if prompted).");
+            alert.showAndWait();
+        } catch (ArithmeticException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Inventory stock amount must be between the min and max values.");
+            alert.showAndWait();
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Please enter a name and company name (if prompted) for the part.");
+            alert.showAndWait();
+        }
     }
 
     /** Initializes controller for use once root element has been set.
@@ -80,5 +132,29 @@ public class ModifyPartFormController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+    }
+
+    /** Parses through data of Part object to populate UI of modify part screen.
+     * @param part Part object to be parsed for populating text fields
+     */
+    public void sendPart(Part part) {
+        partIdTxt.setText(String.valueOf(part.getId()));
+        partNameTxt.setText(part.getName());
+        partInvTxt.setText(String.valueOf(part.getStock()));
+        partPriceTxt.setText(String.valueOf(part.getPrice()));
+        partMaxTxt.setText(String.valueOf(part.getMax()));
+        partMinTxt.setText(String.valueOf(part.getMin()));
+
+        if (part instanceof InHouse) {
+            partConstructLabel.setText("MachineID");
+            partConstructTxt.setText(String.valueOf(((InHouse) part).getMachineId()));
+            inHouseRadio.setSelected(true);
+            outsourcedRadio.setSelected(false);
+        } else if (part instanceof Outsourced) {
+            partConstructLabel.setText("Company Name");
+            partConstructTxt.setText(String.valueOf(((Outsourced) part).getCompanyName()));
+            inHouseRadio.setSelected(false);
+            outsourcedRadio.setSelected(true);
+        }
     }
 }

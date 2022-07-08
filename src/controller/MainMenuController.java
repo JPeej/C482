@@ -1,5 +1,10 @@
 package controller;
 
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.stage.Stage;
 import model.Part;
 import java.net.URL;
 import model.Inventory;
@@ -17,10 +22,11 @@ import model.Product;
 /** Controls user input to the main menu screen.*/
 public class MainMenuController implements Initializable {
 
+    Stage stage;
     Navigation nav = new Navigation();
 
     @FXML
-    private TableView<Part> partTableView;
+    protected TableView<Part> partTableView;
 
     @FXML
     private TableColumn<Part, Integer> partIdCol;
@@ -55,7 +61,7 @@ public class MainMenuController implements Initializable {
     @FXML
     private TextField productSearchBar;
 
-    /** Event handler for add part button.
+    /** Event handler for add part button, opens add part screen.
      * Add part button will pass ActionEvent object that is created when the button is pressed.
      * Calls button method via Navigation object. Passes event and string, "AddPartForm", for FXMLLoader to use.
      * See Controller package > Navigation class > button method.
@@ -64,19 +70,31 @@ public class MainMenuController implements Initializable {
      */
     @FXML
     void onActionAddPart(ActionEvent event) throws IOException {
-        nav.button(event, "AddPartForm");
+        nav.navigate(event, "AddPartForm");
     }
 
     /** Event handler for modify part button.
-     * Modify part button will pass ActionEvent object that is created when the button is pressed.
-     * Calls button method via Navigation object. Passes event and string, "ModifyPartForm", for FXMLLoader to use.
-     * See Controller package > Navigation class > button method.
+     * Gets the selected item from the main menu parts table.
+     * Passes part in sendPart method to parse data for population on modify part menu.
+     * Opens modify part menu.
      * @param event ActionEvent object holding information on the button pressed
      * @throws IOException
      */
     @FXML
     void onActionModifyPart(ActionEvent event) throws IOException {
-        nav.button(event, "ModifyPartForm");
+        String location = "/view/ModifyPartForm.fxml";
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource(location));
+        loader.load();
+
+        ModifyPartFormController MDFController = loader.getController();
+        MDFController.sendPart(partTableView.getSelectionModel().getSelectedItem());
+
+        stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+        Parent scene = loader.getRoot();
+        //nav.setTitle(location);
+        stage.setScene(new Scene(scene));
+        stage.show();
     }
 
 
@@ -85,7 +103,7 @@ public class MainMenuController implements Initializable {
 
     }
 
-    /** Event handler for add product button.
+    /** Event handler for add product button, opens add product screen.
      * Add product button will pass ActionEvent object that is created when the button is pressed.
      * Calls button method via Navigation object. Passes event and string, "AddProductForm", for FXMLLoader to use.
      * See Controller package > Navigation class > button method.
@@ -94,7 +112,7 @@ public class MainMenuController implements Initializable {
      */
     @FXML
     void onActionAddProduct(ActionEvent event) throws IOException {
-        nav.button(event, "AddProductForm");
+        nav.navigate(event, "AddProductForm");
     }
 
     /** Event handler for modify product button.
@@ -106,7 +124,7 @@ public class MainMenuController implements Initializable {
      */
     @FXML
     void onActionModifyProduct(ActionEvent event) throws IOException {
-        nav.button(event, "ModifyProductForm");
+        nav.navigate(event, "ModifyProductForm");
     }
 
     @FXML
