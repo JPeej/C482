@@ -7,9 +7,11 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TableColumn;
 import model.Inventory;
+import model.Part;
 import model.Product;
 
 /** Controls user input to the add product screen.*/
@@ -18,21 +20,25 @@ public class AddProductFormController implements Initializable {
     Navigation nav = new Navigation();
 
     @FXML
-    private TableColumn<?, ?> allPartIdCol;
+    private TableView<Part> allPartsTableView;
     @FXML
-    private TableColumn<?, ?> allPartInvCol;
+    private TableView<Part> assocPartsTableView;
     @FXML
-    private TableColumn<?, ?> allPartNameCol;
+    private TableColumn<Part, Integer> allPartIdCol;
     @FXML
-    private TableColumn<?, ?> allPartPriceCol;
+    private TableColumn<Part, Integer> allPartInvCol;
     @FXML
-    private TableColumn<?, ?> assocPartIdCol;
+    private TableColumn<Part, String> allPartNameCol;
     @FXML
-    private TableColumn<?, ?> assocPartInvCol;
+    private TableColumn<Part, Double> allPartPriceCol;
     @FXML
-    private TableColumn<?, ?> assocPartNameCol;
+    private TableColumn<Part, Integer> assocPartIdCol;
     @FXML
-    private TableColumn<?, ?> assocPartPriceCol;
+    private TableColumn<Part, Integer> assocPartInvCol;
+    @FXML
+    private TableColumn<Part, String> assocPartNameCol;
+    @FXML
+    private TableColumn<Part, Double> assocPartPriceCol;
     @FXML
     private TextField productAddPartSearch;
     @FXML
