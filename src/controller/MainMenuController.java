@@ -147,7 +147,7 @@ public class MainMenuController implements Initializable {
         productIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         productNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         productStockCol.setCellValueFactory(new PropertyValueFactory<>("stock"));
-        productPriceCol.setCellValueFactory(new PropertyValueFactory<>(""));
+        productPriceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
 
     }
 }

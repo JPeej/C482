@@ -72,7 +72,13 @@ public class AddProductFormController implements Initializable {
 
     @FXML
     void onActionRemoveAssocPart(ActionEvent event) {
-
+        Part selectedPart = assocPartsTableView.getSelectionModel().getSelectedItem();
+        partsTemp.remove(selectedPart);
+        assocPartsTableView.setItems(partsTemp);
+        assocPartIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+        assocPartInvCol.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        assocPartNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+        assocPartPriceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
     }
 
     /** Event handler for cancel button.
