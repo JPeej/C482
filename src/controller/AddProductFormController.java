@@ -47,8 +47,6 @@ public class AddProductFormController implements Initializable {
     @FXML
     private TextField productAddPartSearch;
     @FXML
-    private TextField productIdTxt;
-    @FXML
     private TextField productInvTxt;
     @FXML
     private TextField productMaxTxt;
@@ -59,6 +57,10 @@ public class AddProductFormController implements Initializable {
     @FXML
     private TextField productPriceTxt;
 
+    /** Adds part to temp associated parts list.
+     * Updates associated parts table view.
+     * @param event ActionEvent object holding information on the button pressed
+     */
     @FXML
     void onActionAddAssocPart(ActionEvent event) {
         Part selectedPart = allPartsTableView.getSelectionModel().getSelectedItem();
@@ -70,6 +72,11 @@ public class AddProductFormController implements Initializable {
         assocPartPriceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
     }
 
+    /** Removes part from temp associated parts list.
+     * Updates associated parts table view.
+     * No permanent changes made until save is clicked.
+     * @param event ActionEvent object holding information on the button pressed
+     */
     @FXML
     void onActionRemoveAssocPart(ActionEvent event) {
         Part selectedPart = assocPartsTableView.getSelectionModel().getSelectedItem();
@@ -94,6 +101,11 @@ public class AddProductFormController implements Initializable {
         nav.cancel(event);
     }
 
+    /** Event handler for save button.
+     *  Saves new product to the inventory.
+     * @param event ActionEvent object holding information on the button pressed
+     * @throws IOException
+     */
     @FXML
     void onActionSaveProduct(ActionEvent event) throws IOException {
         try {
