@@ -94,7 +94,6 @@ public class AddPartFormController implements Initializable {
                 Part newPart = new Outsourced(id, name, price, stock, min, max, companyName);
                 Inventory.addPart(newPart);
             }
-
             nav.navigate(event, "MainMenu");
 
         } catch (NumberFormatException e) {

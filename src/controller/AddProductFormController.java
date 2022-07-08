@@ -6,8 +6,11 @@ import java.io.IOException;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TableColumn;
+import model.Inventory;
+import model.Product;
 
 /** Controls user input to the add product screen.*/
 public class AddProductFormController implements Initializable {
@@ -16,46 +19,32 @@ public class AddProductFormController implements Initializable {
 
     @FXML
     private TableColumn<?, ?> allPartIdCol;
-
     @FXML
     private TableColumn<?, ?> allPartInvCol;
-
     @FXML
     private TableColumn<?, ?> allPartNameCol;
-
     @FXML
     private TableColumn<?, ?> allPartPriceCol;
-
     @FXML
     private TableColumn<?, ?> assocPartIdCol;
-
     @FXML
     private TableColumn<?, ?> assocPartInvCol;
-
     @FXML
     private TableColumn<?, ?> assocPartNameCol;
-
     @FXML
     private TableColumn<?, ?> assocPartPriceCol;
-
     @FXML
     private TextField productAddPartSearch;
-
     @FXML
     private TextField productIdTxt;
-
     @FXML
     private TextField productInvTxt;
-
     @FXML
     private TextField productMaxTxt;
-
     @FXML
     private TextField productMinTxt;
-
     @FXML
     private TextField productNameTxt;
-
     @FXML
     private TextField productPriceTxt;
 
@@ -84,7 +73,36 @@ public class AddProductFormController implements Initializable {
 
     @FXML
     void onActionSaveProduct(ActionEvent event) throws IOException {
-        nav.navigate(event, "MainMenu");
+        try {
+            int stock = Integer.parseInt(productInvTxt.getText());
+            int min = Integer.parseInt(productMinTxt.getText());
+            int max = Integer.parseInt(productMaxTxt.getText());
+            if (stock < min || stock > max) {
+                throw new ArithmeticException();
+            }
+
+            String name = productNameTxt.getText();
+            if (name.isBlank()) {
+                throw new Exception();
+            }
+
+            double price = Double.parseDouble(productPriceTxt.getText());
+            int id = Inventory.populateProductId();
+
+            Product newProduct = new Product(id, name, price, stock, min, max);
+            Inventory.addProduct(newProduct);
+            nav.navigate(event, "MainMenu");
+
+        } catch (NumberFormatException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Please enter numeric values in the following fields: Inv, Price, Max, Min, and MachineID (if prompted).");
+            alert.showAndWait();
+        } catch (ArithmeticException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Inventory stock amount must be between the min and max values.");
+            alert.showAndWait();
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Please enter a name and company name (if prompted) for the part.");
+            alert.showAndWait();
+        }
     }
 
     /** Initializes controller for use once root element has been set.
