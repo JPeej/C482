@@ -1,61 +1,55 @@
 package controller;
 
 import java.net.URL;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import java.io.IOException;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TableColumn;
+import model.Part;
 
 /** Controls user input to modify product screen.*/
 public class ModifyProductFormController implements Initializable {
 
     Navigation nav = new Navigation();
 
+    private ObservableList<Part> partsTemp = FXCollections.observableArrayList();
     @FXML
-    private TableColumn<?, ?> allPartIdCol;
-
+    private TableView<Part> allPartsTableView;
     @FXML
-    private TableColumn<?, ?> allPartInvCol;
-
+    private TableView<Part> assocPartsTableView;
     @FXML
-    private TableColumn<?, ?> allPartNameCol;
-
+    private TableColumn<Part, Integer> allPartIdCol;
     @FXML
-    private TableColumn<?, ?> allPartPriceCol;
-
+    private TableColumn<Part, Integer> allPartInvCol;
     @FXML
-    private TableColumn<?, ?> assocPartIdCol;
-
+    private TableColumn<Part, String> allPartNameCol;
     @FXML
-    private TableColumn<?, ?> assocPartInvCol;
-
+    private TableColumn<Part, Double> allPartPriceCol;
     @FXML
-    private TableColumn<?, ?> assocPartNameCol;
-
+    private TableColumn<Part, Integer> assocPartIdCol;
     @FXML
-    private TableColumn<?, ?> assocPartPriceCol;
-
+    private TableColumn<Part, Integer> assocPartInvCol;
+    @FXML
+    private TableColumn<Part, String> assocPartNameCol;
+    @FXML
+    private TableColumn<Part, Double> assocPartPriceCol;
     @FXML
     private TextField productAddPartSearch;
-
-    @FXML
-    private TextField productIdTxt;
-
     @FXML
     private TextField productInvTxt;
-
     @FXML
     private TextField productMaxTxt;
-
     @FXML
     private TextField productMinTxt;
-
     @FXML
     private TextField productNameTxt;
-
     @FXML
     private TextField productPriceTxt;
 
