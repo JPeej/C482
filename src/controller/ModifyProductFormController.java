@@ -7,13 +7,11 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import java.io.IOException;
 import java.util.Locale;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TableColumn;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.Inventory;
 import model.Part;
@@ -107,13 +105,17 @@ public class ModifyProductFormController implements Initializable {
      */
     @FXML
     void onActionRemoveAssocPart(ActionEvent event) {
-        Part selectedPart = assocPartsTableView.getSelectionModel().getSelectedItem();
-        partsTemp.remove(selectedPart);
-        assocPartsTableView.setItems(partsTemp);
-        assocPartIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
-        assocPartInvCol.setCellValueFactory(new PropertyValueFactory<>("stock"));
-        assocPartNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
-        assocPartPriceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Click OK to confirm removal of part.");
+        Optional<ButtonType> result = alert.showAndWait();
+        if(result.get() == ButtonType.OK) {
+            Part selectedPart = assocPartsTableView.getSelectionModel().getSelectedItem();
+            partsTemp.remove(selectedPart);
+            assocPartsTableView.setItems(partsTemp);
+            assocPartIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+            assocPartInvCol.setCellValueFactory(new PropertyValueFactory<>("stock"));
+            assocPartNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+            assocPartPriceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
+        }
     }
 
     /** Event handler for cancel button.

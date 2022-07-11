@@ -14,6 +14,7 @@ import model.Inventory;
 import javafx.fxml.FXML;
 import java.io.IOException;
 import java.util.Locale;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
@@ -90,12 +91,16 @@ public class MainMenuController<TODO> implements Initializable {
 
     @FXML
     void onActionDeletePart(ActionEvent event) {
-        Part partToDelete = partTableView.getSelectionModel().getSelectedItem();
-        Inventory.deletePart(partToDelete);
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Click OK to confirm deletion of part.");
+        Optional<ButtonType> result = alert.showAndWait();
+        if(result.get() == ButtonType.OK) {
+            Part partToDelete = partTableView.getSelectionModel().getSelectedItem();
+            Inventory.deletePart(partToDelete);
 
-        if (Inventory.getAllParts().contains(partToDelete)) {
-            Alert alert = new Alert(Alert.AlertType.ERROR, "Part not deleted.");
-            alert.showAndWait();
+            if (Inventory.getAllParts().contains(partToDelete)) {
+                Alert notDeleted = new Alert(Alert.AlertType.ERROR, "Part not deleted.");
+                notDeleted.showAndWait();
+            }
         }
     }
 
@@ -160,12 +165,20 @@ public class MainMenuController<TODO> implements Initializable {
 
     @FXML
     void onActionDeleteProduct(ActionEvent event) {
-        Product productToDelete = productTableView.getSelectionModel().getSelectedItem();
-        Inventory.deleteProduct(productToDelete);
-
-        if (Inventory.getAllProducts().contains(productToDelete)) {
-            Alert alert = new Alert(Alert.AlertType.ERROR, "Product not deleted.");
-            alert.showAndWait();
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Click OK to confirm deletion of product.");
+        Optional<ButtonType> result = alert.showAndWait();
+        if(result.get() == ButtonType.OK) {
+            Product productToDelete = productTableView.getSelectionModel().getSelectedItem();
+            if (productToDelete.getAllAssociatedParts().isEmpty()) {
+                Inventory.deleteProduct(productToDelete);
+            } else {
+                Alert notDeleted = new Alert(Alert.AlertType.ERROR, "Product not deleted. Remove all associated parts.");
+                notDeleted.showAndWait();
+            }
+            if (Inventory.getAllProducts().contains(productToDelete)) {
+                Alert notDeleted = new Alert(Alert.AlertType.ERROR, "Product not deleted.");
+                notDeleted.showAndWait();
+            }
         }
     }
 
