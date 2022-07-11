@@ -17,6 +17,7 @@ public class ModifyPartFormController implements Initializable {
 
     Navigation nav = new Navigation();
 
+    private int index;
     @FXML
     private RadioButton inHouseRadio;
     @FXML
@@ -95,7 +96,6 @@ public class ModifyPartFormController implements Initializable {
 
             double price = Double.parseDouble(partPriceTxt.getText());
             int id  = Integer.parseInt(partIdTxt.getText());
-            int index = id - 1;
 
             if(inHouseRadio.isSelected()) {
                 int machineId = Integer.parseInt(partConstructTxt.getText());
@@ -156,5 +156,7 @@ public class ModifyPartFormController implements Initializable {
             inHouseRadio.setSelected(false);
             outsourcedRadio.setSelected(true);
         }
+
+        index = Inventory.getAllParts().indexOf(part);
     }
 }

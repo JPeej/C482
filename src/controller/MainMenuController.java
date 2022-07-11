@@ -111,8 +111,20 @@ public class MainMenuController implements Initializable {
      * @throws IOException
      */
     @FXML
-    void onActionModifyProduct(ActionEvent event) throws IOException {
-        nav.navigate(event, "ModifyProductForm");
+    void onActionModifyProduct(ActionEvent event)  throws IOException {
+        String location = "/view/ModifyProductForm.fxml";
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource(location));
+        loader.load();
+
+        ModifyProductFormController MPFController = loader.getController();
+        MPFController.sendProduct(productTableView.getSelectionModel().getSelectedItem());
+
+        stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+        Parent scene = loader.getRoot();
+        //nav.setTitle(location);
+        stage.setScene(new Scene(scene));
+        stage.show();
     }
 
     @FXML
