@@ -16,6 +16,10 @@ public class Inventory {
 
     /** Gets the static partId field to autopopulate part Ids.
      * Post increments the static partId field.
+     * RUNTIME ERROR - For some reason I had the return line read as, "return partId++".
+     * I was having issues with ID autopopulation as it was incrementing by 3.
+     * I used the debugger and a watcher to find the logic bug.
+     * The same occurred for populateProductId.
      * @return int partId for use in part creation
      */
     public static int populatePartId() {
