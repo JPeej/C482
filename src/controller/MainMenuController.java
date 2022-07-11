@@ -90,6 +90,11 @@ public class MainMenuController implements Initializable {
     void onActionDeletePart(ActionEvent event) {
         Part partToDelete = partTableView.getSelectionModel().getSelectedItem();
         Inventory.deletePart(partToDelete);
+
+        if (Inventory.getAllParts().contains(partToDelete)) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Part not deleted.");
+            alert.showAndWait();
+        }
     }
 
     @FXML
@@ -154,6 +159,11 @@ public class MainMenuController implements Initializable {
     void onActionDeleteProduct(ActionEvent event) {
         Product productToDelete = productTableView.getSelectionModel().getSelectedItem();
         Inventory.deleteProduct(productToDelete);
+
+        if (Inventory.getAllProducts().contains(productToDelete)) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Product not deleted.");
+            alert.showAndWait();
+        }
     }
 
     @FXML void onActionSearchProducts(ActionEvent event) {
