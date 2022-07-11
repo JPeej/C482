@@ -61,6 +61,10 @@ public class ModifyProductFormController implements Initializable {
     @FXML
     private TextField productPriceTxt;
 
+    /** Adds part to temp associated parts list.
+     * Updates associated parts table view.
+     * @param event ActionEvent object holding information on the button pressed
+     */
     @FXML
     void onActionAddAssocPart(ActionEvent event) {
         Part selectedPart = allPartsTableView.getSelectionModel().getSelectedItem();
@@ -72,6 +76,11 @@ public class ModifyProductFormController implements Initializable {
         assocPartPriceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
     }
 
+    /** Removes part from temp associated parts list.
+     * Updates associated parts table view.
+     * No permanent changes made until save is clicked.
+     * @param event ActionEvent object holding information on the button pressed
+     */
     @FXML
     void onActionRemoveAssocPart(ActionEvent event) {
         Part selectedPart = assocPartsTableView.getSelectionModel().getSelectedItem();
@@ -96,6 +105,15 @@ public class ModifyProductFormController implements Initializable {
         nav.cancel(event);
     }
 
+    /** Saves changes to product.
+     * Parses data that has been input from user.
+     * Creates new Product object with data and inserts into original Product index in allProducts.
+     * @param event ActionEvent object holding information on the button pressed
+     * @throws IOException
+     * @throws ArithmeticException
+     * @throws NumberFormatException
+     * @throws Exception
+     */
     @FXML
     void onActionSaveProduct(ActionEvent event) throws IOException {
         try {
@@ -134,6 +152,7 @@ public class ModifyProductFormController implements Initializable {
     }
 
     /** Initializes controller for use once root element has been set.
+     * Populates table views.
      * Override for Initializable class initialize method.
      * First method called for controller when screen is loaded.
      * @param url location used for the root to find relative paths
@@ -154,8 +173,9 @@ public class ModifyProductFormController implements Initializable {
         assocPartPriceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
     }
 
-    /**
-     * @param product 
+    /** Parses through data of Product object to populate UI of modify product screen.
+     * Populates temp part list with associated parts.
+     * @param product Product object to be parsed for populating text fields
      */
     public void sendProduct(Product product) {
         productIdTxt.setText(String.valueOf(product.getId()));
