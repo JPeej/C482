@@ -144,7 +144,7 @@ public class ModifyProductFormController implements Initializable {
             int stock = Integer.parseInt(productInvTxt.getText());
             int min = Integer.parseInt(productMinTxt.getText());
             int max = Integer.parseInt(productMaxTxt.getText());
-            if (stock < min || stock > max) {
+            if (stock < min || stock > max || min > max) {
                 throw new ArithmeticException();
             }
 

@@ -69,7 +69,7 @@ public class AddPartFormController implements Initializable {
             int stock = Integer.parseInt(partInvTxt.getText());
             int min = Integer.parseInt(partMinTxt.getText());
             int max = Integer.parseInt(partMaxTxt.getText());
-            if (stock < min || stock > max) {
+            if (stock < min || stock > max || min > max) {
                 throw new ArithmeticException();
             }
 
