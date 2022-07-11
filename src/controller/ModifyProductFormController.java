@@ -146,8 +146,17 @@ public class ModifyProductFormController implements Initializable {
         allPartNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         allPartInvCol.setCellValueFactory(new PropertyValueFactory<>("stock"));
         allPartPriceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
+
+        assocPartsTableView.setItems(partsTemp);
+        assocPartIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+        assocPartNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+        assocPartInvCol.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        assocPartPriceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
     }
 
+    /**
+     * @param product 
+     */
     public void sendProduct(Product product) {
         productIdTxt.setText(String.valueOf(product.getId()));
         productNameTxt.setText(product.getName());
@@ -159,13 +168,6 @@ public class ModifyProductFormController implements Initializable {
         for (Part part : product.getAllAssociatedParts()) {
             partsTemp.add(part);
         }
-
-        assocPartsTableView.setItems(partsTemp);
-        assocPartIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
-        assocPartNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
-        assocPartInvCol.setCellValueFactory(new PropertyValueFactory<>("stock"));
-        assocPartPriceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
-
         index = Inventory.getAllProducts().indexOf(product);
     }
 }

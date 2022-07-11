@@ -104,7 +104,7 @@ public class MainMenuController implements Initializable {
     }
 
     /** Event handler for modify product button.
-     * Modify prodcut button will pass ActionEvent object that is created when the button is pressed.
+     * Modify product button will pass ActionEvent object that is created when the button is pressed.
      * Calls button method via Navigation object. Passes event and string, "ModifyProductForm", for FXMLLoader to use.
      * See Controller package > Navigation class > button method.
      * @param event ActionEvent object holding information on the button pressed
