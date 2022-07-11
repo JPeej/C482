@@ -26,7 +26,7 @@ public class Inventory {
      */
     public static int populateProductId() {
         productId += 2;
-        return productId++;
+        return productId;
     }
 
     /** Add a Part to the allParts list.

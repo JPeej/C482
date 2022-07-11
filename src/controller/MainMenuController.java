@@ -104,15 +104,27 @@ public class MainMenuController implements Initializable {
     }
 
     /** Event handler for modify product button.
-     * Modify prodcut button will pass ActionEvent object that is created when the button is pressed.
+     * Modify product button will pass ActionEvent object that is created when the button is pressed.
      * Calls button method via Navigation object. Passes event and string, "ModifyProductForm", for FXMLLoader to use.
      * See Controller package > Navigation class > button method.
      * @param event ActionEvent object holding information on the button pressed
      * @throws IOException
      */
     @FXML
-    void onActionModifyProduct(ActionEvent event) throws IOException {
-        nav.navigate(event, "ModifyProductForm");
+    void onActionModifyProduct(ActionEvent event)  throws IOException {
+        String location = "/view/ModifyProductForm.fxml";
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource(location));
+        loader.load();
+
+        ModifyProductFormController MPFController = loader.getController();
+        MPFController.sendProduct(productTableView.getSelectionModel().getSelectedItem());
+
+        stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+        Parent scene = loader.getRoot();
+        //nav.setTitle(location);
+        stage.setScene(new Scene(scene));
+        stage.show();
     }
 
     @FXML
