@@ -76,7 +76,7 @@
             <TableColumn fx:id="allPartPriceCol" prefWidth="87.5" text="Price per Unit" />
         </columns>
       </TableView>
-      <TextField fx:id="productAddPartSearch" alignment="CENTER" layoutX="599.0" layoutY="27.0" prefHeight="26.0" prefWidth="175.0" promptText="Search by Part ID or Name" />
+      <TextField fx:id="productAddPartSearch" alignment="CENTER" layoutX="599.0" layoutY="27.0" onAction="#onActionSearchParts" prefHeight="26.0" prefWidth="175.0" promptText="Search by Part ID or Name" />
       <TableView fx:id="assocPartsTableView" layoutX="423.0" layoutY="303.0" prefHeight="150.0" prefWidth="350.0">
          <columns>
             <TableColumn fx:id="assocPartIdCol" prefWidth="87.5" text="Part ID" />

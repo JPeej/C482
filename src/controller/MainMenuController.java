@@ -7,6 +7,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import model.Part;
+
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import model.Inventory;
 import javafx.fxml.FXML;
@@ -19,7 +21,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import model.Product;
 
 /** Controls user input to the main menu screen.*/
-public class MainMenuController implements Initializable {
+public class MainMenuController<TODO> implements Initializable {
 
     Stage stage;
     Navigation nav = new Navigation();
@@ -97,6 +99,7 @@ public class MainMenuController implements Initializable {
         }
     }
 
+    //TODO: Exception thrown if string isn't found.
     @FXML
     void onActionSearchParts(ActionEvent event) {
         String queryName = partSearchBar.getText().toLowerCase(Locale.ROOT);
@@ -166,6 +169,7 @@ public class MainMenuController implements Initializable {
         }
     }
 
+    //TODO: Exception thrown if string isn't found.
     @FXML void onActionSearchProducts(ActionEvent event) {
         String queryName = productSearchBar.getText().toLowerCase(Locale.ROOT);
         ObservableList<Product> productQueryResult = Inventory.lookupProduct(queryName);
@@ -179,8 +183,7 @@ public class MainMenuController implements Initializable {
             if (result != null) {
                 productQueryResult.add(result);
                 productTableView.setItems(productQueryResult);
-            }
-            else {
+            } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR, "No products found from query.");
                 alert.showAndWait();
             }

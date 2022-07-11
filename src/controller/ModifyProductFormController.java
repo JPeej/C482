@@ -6,6 +6,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import java.io.IOException;
+import java.util.Locale;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
@@ -60,6 +61,29 @@ public class ModifyProductFormController implements Initializable {
     private TextField productNameTxt;
     @FXML
     private TextField productPriceTxt;
+
+    //TODO: Exception thrown if string isn't found.
+    @FXML
+    void onActionSearchParts(ActionEvent event) {
+        String queryName = productAddPartSearch.getText().toLowerCase(Locale.ROOT);
+        ObservableList<Part> partQueryResult = Inventory.lookupPart(queryName);
+
+        if (!(partQueryResult.isEmpty())) {
+            allPartsTableView.setItems(partQueryResult);
+        }
+        else {
+            int queryId = Integer.parseInt(productAddPartSearch.getText());
+            Part result = Inventory.lookupPart(queryId);
+            if (result != null) {
+                partQueryResult.add(result);
+                allPartsTableView.setItems(partQueryResult);
+            }
+            else {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "No parts found from query.");
+                alert.showAndWait();
+            }
+        }
+    }
 
     /** Adds part to temp associated parts list.
      * Updates associated parts table view.
