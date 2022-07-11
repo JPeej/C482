@@ -2,6 +2,9 @@ package model;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
+
+import java.util.Locale;
 
 /** Manages all Parts and Products within the company. */
 public class Inventory {
@@ -73,13 +76,9 @@ public class Inventory {
         ObservableList<Part> filteredPartList = FXCollections.observableArrayList();
 
         for (Part part : allParts)
-            if (part.getName().contains(partName))
+            if (part.getName().toLowerCase(Locale.ROOT).contains(partName))
                 filteredPartList.add(part);
-
-        if (!(filteredPartList.isEmpty()))
             return filteredPartList;
-        else
-            return allParts;
     }
 
     /** Search for Product by name substring.
@@ -92,11 +91,7 @@ public class Inventory {
         for (Product product : allProducts)
             if (product.getName().contains(productName))
                 filteredProductList.add(product);
-
-        if (!(filteredProductList.isEmpty()))
             return filteredProductList;
-        else
-            return allProducts;
     }
 
     /**Updates a Part within the allParts list.

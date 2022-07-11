@@ -1,21 +1,20 @@
 package controller;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import model.Part;
 import java.net.URL;
 import model.Inventory;
 import javafx.fxml.FXML;
 import java.io.IOException;
+import java.util.Locale;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.Product;
 
@@ -36,8 +35,6 @@ public class MainMenuController implements Initializable {
     @FXML
     private TableColumn<Part, Double> partPriceCol;
     @FXML
-    private TextField partSearchBar;
-    @FXML
     private TableView<Product> productTableView;
     @FXML
     private TableColumn<Product, Integer> productIdCol;
@@ -48,7 +45,10 @@ public class MainMenuController implements Initializable {
     @FXML
     private TableColumn<Product, Double> productPriceCol;
     @FXML
+    private TextField partSearchBar;
+    @FXML
     private TextField productSearchBar;
+
 
     /** Event handler for add part button, opens add part screen.
      * Add part button will pass ActionEvent object that is created when the button is pressed.
@@ -89,6 +89,28 @@ public class MainMenuController implements Initializable {
     @FXML
     void onActionDeletePart(ActionEvent event) {
 
+    }
+
+    @FXML
+    void onActionSearchParts(ActionEvent event) {
+        String queryName = partSearchBar.getText().toLowerCase(Locale.ROOT);
+        ObservableList<Part> partQueryResult = Inventory.lookupPart(queryName);
+
+        if (!(partQueryResult.isEmpty())) {
+            partTableView.setItems(partQueryResult);
+        }
+        else {
+            int queryId = Integer.parseInt(partSearchBar.getText());
+            Part result = Inventory.lookupPart(queryId);
+            if (result != null) {
+                partQueryResult.add(result);
+                partTableView.setItems(partQueryResult);
+            }
+            else {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "No parts found from query.");
+                alert.showAndWait();
+            }
+        }
     }
 
     /** Event handler for add product button, opens add product screen.
@@ -132,6 +154,26 @@ public class MainMenuController implements Initializable {
 
     }
 
+    @FXML void onActionSearchProducts(ActionEvent event) {
+        String queryName = productSearchBar.getText().toLowerCase(Locale.ROOT);
+        ObservableList<Product> productQueryResult = Inventory.lookupProduct(queryName);
+
+        if (!(productQueryResult.isEmpty())) {
+            productTableView.setItems(productQueryResult);
+        }
+        else {
+            int queryId = Integer.parseInt(productSearchBar.getText());
+            Product result = Inventory.lookupProduct(queryId);
+            if (result != null) {
+                productQueryResult.add(result);
+                productTableView.setItems(productQueryResult);
+            }
+            else {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "No products found from query.");
+                alert.showAndWait();
+            }
+        }
+    }
 
     /** Properly closes running program.
      * Terminates JVM. Zero passed into exit method indicates normal termination.
