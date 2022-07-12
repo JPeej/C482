@@ -1,16 +1,16 @@
 package controller;
 
+import model.Part;
 import java.net.URL;
+import model.InHouse;
+import model.Inventory;
 import javafx.fxml.FXML;
+import model.Outsourced;
 import java.io.IOException;
 import javafx.scene.control.*;
 import javafx.event.ActionEvent;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
-import model.InHouse;
-import model.Inventory;
-import model.Outsourced;
-import model.Part;
 
 /** Controls user input to modify part screen.*/
 public class ModifyPartFormController implements Initializable {
@@ -121,16 +121,6 @@ public class ModifyPartFormController implements Initializable {
         }
     }
 
-    /** Initializes controller for use once root element has been set.
-     * Override for Initializable class initialize method.
-     * First method called for controller when screen is loaded.
-     * @param url location used for the root to find relative paths
-     * @param resourceBundle resources to find root object
-     */
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-    }
-
     /** Parses through data of Part object to populate UI of modify part screen.
      * @param part Part object to be parsed for populating text fields
      */
@@ -156,4 +146,16 @@ public class ModifyPartFormController implements Initializable {
 
         index = Inventory.getAllParts().indexOf(part);
     }
+
+    /** Initializes controller for use once root element has been set.
+     * Override for Initializable class initialize method.
+     * First method called for controller when screen is loaded.
+     * @param url location used for the root to find relative paths
+     * @param resourceBundle resources to find root object
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+    }
+
+
 }

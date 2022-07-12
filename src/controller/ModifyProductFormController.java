@@ -1,30 +1,27 @@
 package controller;
 
+import model.Part;
 import java.net.URL;
-
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import model.Product;
+import model.Inventory;
 import javafx.fxml.FXML;
-import java.io.IOException;
-import java.util.Locale;
 import java.util.Optional;
+import java.io.IOException;
+import javafx.scene.control.*;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
-import model.Inventory;
-import model.Part;
-import model.Product;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 /** Controls user input to modify product screen.*/
 public class ModifyProductFormController implements Initializable {
 
-    Navigation nav = new Navigation();
-
     private int id;
     private int index;
+    Navigation nav = new Navigation();
     private ObservableList<Part> partsTemp = FXCollections.observableArrayList();
+
     @FXML
     private TableView<Part> allPartsTableView;
     @FXML
@@ -151,19 +148,6 @@ public class ModifyProductFormController implements Initializable {
         }
     }
 
-    /** Initializes controller for use once root element has been set.
-     * Populates table views.
-     * Override for Initializable class initialize method.
-     * First method called for controller when screen is loaded.
-     * @param url location used for the root to find relative paths
-     * @param resourceBundle resources to find root object
-     */
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        Populate.tableView(allPartsTableView, Inventory.getAllParts(), allPartIdCol, allPartInvCol, allPartNameCol, allPartPriceCol);
-        Populate.tableView(assocPartsTableView, partsTemp, assocPartIdCol, assocPartInvCol, assocPartNameCol, assocPartPriceCol);
-    }
-
     /** Parses through data of Product object to populate UI of modify product screen.
      * Populates temp part list with associated parts.
      * @param product Product object to be parsed for populating text fields
@@ -181,4 +165,19 @@ public class ModifyProductFormController implements Initializable {
         }
         index = Inventory.getAllProducts().indexOf(product);
     }
+
+    /** Initializes controller for use once root element has been set.
+     * Populates table views.
+     * Override for Initializable class initialize method.
+     * First method called for controller when screen is loaded.
+     * @param url location used for the root to find relative paths
+     * @param resourceBundle resources to find root object
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        Populate.tableView(allPartsTableView, Inventory.getAllParts(), allPartIdCol, allPartInvCol, allPartNameCol, allPartPriceCol);
+        Populate.tableView(assocPartsTableView, partsTemp, assocPartIdCol, assocPartInvCol, assocPartNameCol, assocPartPriceCol);
+    }
+
+
 }

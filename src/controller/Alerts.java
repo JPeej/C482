@@ -1,9 +1,8 @@
 package controller;
 
+import java.util.Optional;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-
-import java.util.Optional;
 
 public class Alerts {
 

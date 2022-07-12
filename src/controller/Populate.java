@@ -1,8 +1,8 @@
 package controller;
 
-import javafx.collections.ObservableList;
-import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TableColumn;
+import javafx.collections.ObservableList;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 /** Handles population of table views in all screens.*/

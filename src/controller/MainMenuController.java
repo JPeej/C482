@@ -1,23 +1,20 @@
 package controller;
 
-import javafx.collections.ObservableList;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.stage.Stage;
 import model.Part;
 import java.net.URL;
+import model.Product;
 import model.Inventory;
 import javafx.fxml.FXML;
-import java.io.IOException;
-import java.util.Locale;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 import java.util.Optional;
+import javafx.scene.Parent;
+import java.io.IOException;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.control.*;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
-import javafx.scene.control.cell.PropertyValueFactory;
-import model.Product;
 
 /** Controls user input to the main menu screen.*/
 public class MainMenuController implements Initializable {
@@ -26,7 +23,7 @@ public class MainMenuController implements Initializable {
     Navigation nav = new Navigation();
 
     @FXML
-    protected TableView<Part> partTableView;
+    private TableView<Part> partTableView;
     @FXML
     private TableColumn<Part, Integer> partIdCol;
     @FXML
@@ -50,7 +47,6 @@ public class MainMenuController implements Initializable {
     @FXML
     private TextField productSearchBar;
 
-
     /** Event handler for add part button, opens add part screen.
      * Add part button will pass ActionEvent object that is created when the button is pressed.
      * Calls button method via Navigation object. Passes event and string, "AddPartForm", for FXMLLoader to use.
@@ -61,6 +57,18 @@ public class MainMenuController implements Initializable {
     @FXML
     void onActionAddPart(ActionEvent event) throws IOException {
         nav.navigate(event, "AddPartForm");
+    }
+
+    /** Event handler for add product button, opens add product screen.
+     * Add product button will pass ActionEvent object that is created when the button is pressed.
+     * Calls button method via Navigation object. Passes event and string, "AddProductForm", for FXMLLoader to use.
+     * See Controller package > Navigation class > button method.
+     * @param event ActionEvent object holding information on the button pressed
+     * @throws IOException
+     */
+    @FXML
+    void onActionAddProduct(ActionEvent event) throws IOException {
+        nav.navigate(event, "AddProductForm");
     }
 
     /** Event handler for modify part button.
@@ -91,44 +99,6 @@ public class MainMenuController implements Initializable {
         }
     }
 
-    /** Controls deletion of part from the allParts list and tableview.
-     * Confirms deletion is wanted and successful.
-     * @param event ActionEvent object holding information on the button pressed
-     */
-    @FXML
-    void onActionDeletePart(ActionEvent event) {
-        Optional<ButtonType> result = Alerts.alertConfirm("Click OK to confirm deletion of part.");
-        if(result.get() == ButtonType.OK) {
-            Part partToDelete = partTableView.getSelectionModel().getSelectedItem();
-            Inventory.deletePart(partToDelete);
-
-            if (Inventory.getAllParts().contains(partToDelete)) {
-                Alerts.alertError("Part not deleted.");
-            }
-        }
-    }
-
-    /** Searches all available parts for a name or id query.
-     * Uses Search class method searchFor to display parts queried.
-     * @param event ActionEvent object holding information on the button pressed
-     */
-    @FXML
-    void onActionSearchParts(ActionEvent event) {
-        Search.searchFor("Part", partSearchBar, partTableView);
-    }
-
-    /** Event handler for add product button, opens add product screen.
-     * Add product button will pass ActionEvent object that is created when the button is pressed.
-     * Calls button method via Navigation object. Passes event and string, "AddProductForm", for FXMLLoader to use.
-     * See Controller package > Navigation class > button method.
-     * @param event ActionEvent object holding information on the button pressed
-     * @throws IOException
-     */
-    @FXML
-    void onActionAddProduct(ActionEvent event) throws IOException {
-        nav.navigate(event, "AddProductForm");
-    }
-
     /** Event handler for modify product button.
      * Modify product button will pass ActionEvent object that is created when the button is pressed.
      * Calls button method via Navigation object. Passes event and string, "ModifyProductForm", for FXMLLoader to use.
@@ -152,6 +122,23 @@ public class MainMenuController implements Initializable {
         stage.show();
     }
 
+    /** Controls deletion of part from the allParts list and tableview.
+     * Confirms deletion is wanted and successful.
+     * @param event ActionEvent object holding information on the button pressed
+     */
+    @FXML
+    void onActionDeletePart(ActionEvent event) {
+        Optional<ButtonType> result = Alerts.alertConfirm("Click OK to confirm deletion of part.");
+        if(result.get() == ButtonType.OK) {
+            Part partToDelete = partTableView.getSelectionModel().getSelectedItem();
+            Inventory.deletePart(partToDelete);
+
+            if (Inventory.getAllParts().contains(partToDelete)) {
+                Alerts.alertError("Part not deleted.");
+            }
+        }
+    }
+
     /** Controls deletion of product from the allProducts list and tableview.
      * Confirms deletion is wanted and successful.
      * Denies deletion if product has associated parts.
@@ -169,6 +156,15 @@ public class MainMenuController implements Initializable {
                 Alerts.alertError("Product not deleted. Remove all associated parts.");
             }
         }
+    }
+
+    /** Searches all available parts for a name or id query.
+     * Uses Search class method searchFor to display parts queried.
+     * @param event ActionEvent object holding information on the button pressed
+     */
+    @FXML
+    void onActionSearchParts(ActionEvent event) {
+        Search.searchFor("Part", partSearchBar, partTableView);
     }
 
     /** Searches all available products for a name or id query.

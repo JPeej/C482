@@ -1,28 +1,25 @@
 package controller;
 
+import model.Part;
 import java.net.URL;
-
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import model.Product;
+import model.Inventory;
 import javafx.fxml.FXML;
-import java.io.IOException;
-import java.util.Locale;
 import java.util.Optional;
+import java.io.IOException;
+import javafx.scene.control.*;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
-import model.Inventory;
-import model.Part;
-import model.Product;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 /** Controls user input to the add product screen.*/
 public class AddProductFormController implements Initializable {
 
     Navigation nav = new Navigation();
-
     private ObservableList<Part> partsTemp = FXCollections.observableArrayList();
+
     @FXML
     private TableView<Part> allPartsTableView;
     @FXML

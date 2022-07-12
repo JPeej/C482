@@ -55,6 +55,19 @@ public class AddPartFormController implements Initializable {
         partConstructLabel.setText("Company Name");
     }
 
+    /** Event handler for cancel button.
+     * Cancel button will pass ActionEvent object that is created when the button is pressed.
+     * Calls cancel method via Navigation object. Passes event and string, "MainMenu", for FXMLLoader to use.
+     * Confirmation prompts user to cancel or return to add part screen. Canceling returns user to main menu.
+     * See Controller package > Navigation class > cancel method.
+     * @param event ActionEvent object holding information on the button pressed
+     * @throws IOException
+     */
+    @FXML
+    void onActionCancel(ActionEvent event) throws IOException {
+        nav.cancel(event);
+    }
+
     /** Event handler for save button on add part menu.
      * Parses data, checks data types,  creates part, and saves part to allParts list.
      * @param event ActionEvent object holding information on the button pressed
@@ -103,19 +116,6 @@ public class AddPartFormController implements Initializable {
         } catch (Exception e) {
             Alerts.alertError("Please enter a name and company name (if prompted) for the part.");
         }
-    }
-
-    /** Event handler for cancel button.
-     * Cancel button will pass ActionEvent object that is created when the button is pressed.
-     * Calls cancel method via Navigation object. Passes event and string, "MainMenu", for FXMLLoader to use.
-     * Confirmation prompts user to cancel or return to add part screen. Canceling returns user to main menu.
-     * See Controller package > Navigation class > cancel method.
-     * @param event ActionEvent object holding information on the button pressed
-     * @throws IOException
-     */
-    @FXML
-    void onActionCancel(ActionEvent event) throws IOException {
-        nav.cancel(event);
     }
 
     /** Initializes controller for use once root element has been set.

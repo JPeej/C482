@@ -1,10 +1,8 @@
 package model;
 
+import java.util.Locale;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.Alert;
-
-import java.util.Locale;
 
 /** Manages all Parts and Products within the company. */
 public class Inventory {

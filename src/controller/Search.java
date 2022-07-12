@@ -1,15 +1,12 @@
 package controller;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
-import model.Inventory;
 import model.Part;
 import model.Product;
+import model.Inventory;
+import javafx.scene.control.TextField;
+import javafx.scene.control.TableView;
+import javafx.collections.ObservableList;
 
-import java.awt.*;
-import java.util.Locale;
 /** Handles all search queries.*/
 public class Search {
 

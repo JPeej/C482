@@ -1,6 +1,5 @@
 package controller;
 
-import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 import java.util.Optional;
 import javafx.scene.Scene;
@@ -8,12 +7,8 @@ import javafx.scene.Parent;
 import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 import javafx.event.ActionEvent;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
-import model.Part;
-
-import javax.swing.*;
 
 /** Handles all navigation across program.*/
 public class Navigation {
