@@ -20,7 +20,7 @@ import model.Product;
 /** Controls user input to modify product screen.*/
 public class ModifyProductFormController implements Initializable {
 
-    Navigation nav = new Navigation();
+    Navigate nav = new Navigate();
 
     private int id;
     private int index;
@@ -163,7 +163,7 @@ public class ModifyProductFormController implements Initializable {
                 newProduct.addAssociatedPart(associatedPart);
             }
             Inventory.updateProduct(index, newProduct);
-            nav.navigate(event, "MainMenu");
+            nav.moveScreen(event, "MainMenu");
 
         } catch (NumberFormatException e) {
             Alerts.alertError("Please enter numeric values in the following fields: Inv, Price, Max, and Min");

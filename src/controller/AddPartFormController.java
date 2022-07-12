@@ -16,7 +16,7 @@ import javafx.fxml.Initializable;
 /** Controls user input to the add part screen.*/
 public class AddPartFormController implements Initializable {
 
-    Navigation nav = new Navigation();
+    Navigate nav = new Navigate();
 
     @FXML
     private RadioButton inHouseRadio;
@@ -94,7 +94,7 @@ public class AddPartFormController implements Initializable {
                 Part newPart = new Outsourced(id, name, price, stock, min, max, companyName);
                 Inventory.addPart(newPart);
             }
-            nav.navigate(event, "MainMenu");
+            nav.moveScreen(event, "MainMenu");
 
         } catch (NumberFormatException e) {
             Alerts.alertError("Please enter numeric values in the following fields: Inv, Price, Max, Min, and MachineID (if prompted).");

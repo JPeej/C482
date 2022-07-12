@@ -8,15 +8,13 @@ import javafx.scene.Parent;
 import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 import javafx.event.ActionEvent;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import model.Part;
-
-import javax.swing.*;
+import model.Product;
 
 /** Handles all navigation across program.*/
-public class Navigation {
+public class Navigate {
 
     Stage stage;
     Parent scene;
@@ -42,7 +40,7 @@ public class Navigation {
      * @param formLocation string for fxml file name
      * @throws IOException
      */
-    public void navigate(ActionEvent event, String formLocation) throws IOException {
+    public void moveScreen(ActionEvent event, String formLocation) throws IOException {
         String location = location(formLocation);
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource(location));
@@ -61,7 +59,40 @@ public class Navigation {
     public void cancel(ActionEvent event) throws IOException {
         Optional<ButtonType> result = Alerts.alertConfirm("All changes will be cleared and not saved, do you want to continue?");
         if(result.get() == ButtonType.OK){
-            navigate(event, "MainMenu");
+            moveScreen(event, "MainMenu");
+        }
+    }
+
+    public void toModify(ActionEvent event, String item, TableView table) {
+        try {
+            String formLocation = location(item);
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource(formLocation));
+            loader.load();
+
+
+            if (item.equals("ModifyPartForm")) {
+                ModifyPartFormController MPFController = loader.getController();
+                MPFController.sendPart((Part) table.getSelectionModel().getSelectedItem());
+            }
+            else if (item.equals("ModifyProductForm")) {
+                ModifyProductFormController MPFController = loader.getController();
+                MPFController.sendProduct((Product) table.getSelectionModel().getSelectedItem());
+            }
+
+            stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+            Parent scene = loader.getRoot();
+            setTitle(item);
+            stage.setScene(new Scene(scene));
+            stage.show();
+
+        } catch (NullPointerException | IOException e) {
+            if (item.equals("ModifyPartForm")) {
+                Alerts.alertError("Please select a part first.");
+            }
+            else if (item.equals("ModifyProductForm")) {
+                Alerts.alertError("Please select a product first.");
+            }
         }
     }
 

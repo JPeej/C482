@@ -15,7 +15,7 @@ import model.Part;
 /** Controls user input to modify part screen.*/
 public class ModifyPartFormController implements Initializable {
 
-    Navigation nav = new Navigation();
+    Navigate nav = new Navigate();
 
     private int index;
     @FXML
@@ -110,7 +110,7 @@ public class ModifyPartFormController implements Initializable {
                 Inventory.updatePart(index, newPart);
             }
 
-            nav.navigate(event, "MainMenu");
+            nav.moveScreen(event, "MainMenu");
 
         } catch (NumberFormatException e) {
             Alerts.alertError("Please enter numeric values in the following fields: Inv, Price, Max, Min, and MachineID (if prompted).");
