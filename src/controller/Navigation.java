@@ -51,6 +51,20 @@ public class Navigation {
         stage.show();
     }
 
+    /** Handles navigation for cancel buttons.
+     * Prompts user with confirmation as cancelling will delete all changes made.
+     * OK continues to Main Menu and cancel keeps user on current screen.
+     * Uses button method to handle screen change.
+     * @param event ActionEvent object holding information on the button pressed
+     * @throws IOException
+     */
+    public void cancel(ActionEvent event) throws IOException {
+        Optional<ButtonType> result = Alerts.alertConfirm("All changes will be cleared and not saved, do you want to continue?");
+        if(result.get() == ButtonType.OK){
+            navigate(event, "MainMenu");
+        }
+    }
+
     //Work in progress - please disregard.
 
     /*public void navWithData(ActionEvent event, String formLocation) throws IOException {
@@ -71,18 +85,4 @@ public class Navigation {
         stage.showAndWait();
     }*/
 
-    /** Handles navigation for cancel buttons.
-     * Prompts user with confirmation as cancelling will delete all changes made.
-     * OK continues to Main Menu and cancel keeps user on current screen.
-     * Uses button method to handle screen change.
-     * @param event ActionEvent object holding information on the button pressed
-     * @throws IOException
-     */
-    public void cancel(ActionEvent event) throws IOException {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "All changes will be cleared and not saved, do you want to continue?");
-        Optional<ButtonType> result = alert.showAndWait();
-        if(result.get() == ButtonType.OK){
-            navigate(event, "MainMenu");
-        }
-    }
 }

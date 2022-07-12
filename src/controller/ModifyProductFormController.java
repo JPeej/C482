@@ -76,13 +76,11 @@ public class ModifyProductFormController implements Initializable {
                     partQueryResult.add(result);
                     allPartsTableView.setItems(partQueryResult);
                 } else {
-                    Alert alert = new Alert(Alert.AlertType.ERROR, "No parts found from query.");
-                    alert.showAndWait();
+                    Alerts.alertError("No parts found from query.");
                 }
             }
         } catch (NumberFormatException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR, "No parts found from query.");
-            alert.showAndWait();
+            Alerts.alertError("No parts found from query.");
         }
     }
 
@@ -108,8 +106,7 @@ public class ModifyProductFormController implements Initializable {
      */
     @FXML
     void onActionRemoveAssocPart(ActionEvent event) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Click OK to confirm removal of part.");
-        Optional<ButtonType> result = alert.showAndWait();
+        Optional<ButtonType> result = Alerts.alertConfirm("Click OK to confirm removal of part.");
         if(result.get() == ButtonType.OK) {
             Part selectedPart = assocPartsTableView.getSelectionModel().getSelectedItem();
             partsTemp.remove(selectedPart);
@@ -169,14 +166,11 @@ public class ModifyProductFormController implements Initializable {
             nav.navigate(event, "MainMenu");
 
         } catch (NumberFormatException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR, "Please enter numeric values in the following fields: Inv, Price, Max, Min, and MachineID (if prompted).");
-            alert.showAndWait();
+            Alerts.alertError("Please enter numeric values in the following fields: Inv, Price, Max, and Min");
         } catch (ArithmeticException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR, "Inventory stock amount must be between the min and max values.");
-            alert.showAndWait();
+            Alerts.alertError("Inventory stock amount must be between the min and max values.");
         } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR, "Please enter a name and company name (if prompted) for the part.");
-            alert.showAndWait();
+            Alerts.alertError("Please enter a name for the product.");
         }
     }
 

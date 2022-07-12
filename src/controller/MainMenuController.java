@@ -7,8 +7,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import model.Part;
-
-import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import model.Inventory;
 import javafx.fxml.FXML;
@@ -22,7 +20,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import model.Product;
 
 /** Controls user input to the main menu screen.*/
-public class MainMenuController<TODO> implements Initializable {
+public class MainMenuController implements Initializable {
 
     Stage stage;
     Navigation nav = new Navigation();
@@ -74,37 +72,38 @@ public class MainMenuController<TODO> implements Initializable {
      */
     @FXML
     void onActionModifyPart(ActionEvent event) throws IOException {
-        String location = "/view/ModifyPartForm.fxml";
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource(location));
-        loader.load();
+        try {
+            String formLocation = nav.location("ModifyPartForm");
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource(formLocation));
+            loader.load();
 
-        ModifyPartFormController MDFController = loader.getController();
-        MDFController.sendPart(partTableView.getSelectionModel().getSelectedItem());
+            ModifyPartFormController MDFController = loader.getController();
+            MDFController.sendPart(partTableView.getSelectionModel().getSelectedItem());
 
-        stage = (Stage)((Button)event.getSource()).getScene().getWindow();
-        Parent scene = loader.getRoot();
-        //nav.setTitle(location);
-        stage.setScene(new Scene(scene));
-        stage.show();
+            stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+            Parent scene = loader.getRoot();
+            stage.setScene(new Scene(scene));
+            stage.show();
+
+        } catch (NullPointerException e) {
+            Alerts.alertError("Please select a part first.");
+        }
     }
 
     @FXML
     void onActionDeletePart(ActionEvent event) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Click OK to confirm deletion of part.");
-        Optional<ButtonType> result = alert.showAndWait();
+        Optional<ButtonType> result = Alerts.alertConfirm("Click OK to confirm deletion of part.");
         if(result.get() == ButtonType.OK) {
             Part partToDelete = partTableView.getSelectionModel().getSelectedItem();
             Inventory.deletePart(partToDelete);
 
             if (Inventory.getAllParts().contains(partToDelete)) {
-                Alert notDeleted = new Alert(Alert.AlertType.ERROR, "Part not deleted.");
-                notDeleted.showAndWait();
+                Alerts.alertError("Part not deleted.");
             }
         }
     }
 
-    //TODO: Exception thrown if string isn't found.
     @FXML
     void onActionSearchParts(ActionEvent event) {
         try {
@@ -120,13 +119,11 @@ public class MainMenuController<TODO> implements Initializable {
                     partQueryResult.add(result);
                     partTableView.setItems(partQueryResult);
                 } else {
-                    Alert alert = new Alert(Alert.AlertType.ERROR, "No parts found from query.");
-                    alert.showAndWait();
+                    Alerts.alertError("No parts found from query.");
                 }
             }
         } catch (NumberFormatException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR, "No parts found from query.");
-            alert.showAndWait();
+            Alerts.alertError("No parts found from query.");
         }
     }
 
@@ -161,28 +158,24 @@ public class MainMenuController<TODO> implements Initializable {
 
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
         Parent scene = loader.getRoot();
-        //nav.setTitle(location);
         stage.setScene(new Scene(scene));
         stage.show();
     }
 
     @FXML
     void onActionDeleteProduct(ActionEvent event) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Click OK to confirm deletion of product.");
-        Optional<ButtonType> result = alert.showAndWait();
+        Optional<ButtonType> result = Alerts.alertConfirm("Click OK to confirm deletion of product.");
         if(result.get() == ButtonType.OK) {
             Product productToDelete = productTableView.getSelectionModel().getSelectedItem();
             if (productToDelete.getAllAssociatedParts().isEmpty()) {
                 Inventory.deleteProduct(productToDelete);
-            } 
+            }
             else {
-                Alert notDeleted = new Alert(Alert.AlertType.ERROR, "Product not deleted. Remove all associated parts.");
-                notDeleted.showAndWait();
+                Alerts.alertError("Product not deleted. Remove all associated parts.");
             }
         }
     }
 
-    //TODO: Exception thrown if string isn't found.
     @FXML void onActionSearchProducts(ActionEvent event) {
         try {
             String queryName = productSearchBar.getText().toLowerCase(Locale.ROOT);
@@ -197,13 +190,11 @@ public class MainMenuController<TODO> implements Initializable {
                     productQueryResult.add(result);
                     productTableView.setItems(productQueryResult);
                 } else {
-                    Alert alert = new Alert(Alert.AlertType.ERROR, "No products found from query.");
-                    alert.showAndWait();
+                    Alerts.alertError("No products found from query.");
                 }
             }
         } catch (NumberFormatException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR, "No products found from query.");
-            alert.showAndWait();
+            Alerts.alertError("No products found from query.");
         }
     }
 

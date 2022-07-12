@@ -97,14 +97,11 @@ public class AddPartFormController implements Initializable {
             nav.navigate(event, "MainMenu");
 
         } catch (NumberFormatException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR, "Please enter numeric values in the following fields: Inv, Price, Max, Min, and MachineID (if prompted).");
-            alert.showAndWait();
+            Alerts.alertError("Please enter numeric values in the following fields: Inv, Price, Max, Min, and MachineID (if prompted).");
         } catch (ArithmeticException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR, "Inventory stock amount must be between the min and max values.");
-            alert.showAndWait();
+            Alerts.alertError("Inventory stock amount must be between the min and max values.");
         } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR, "Please enter a name and company name (if prompted) for the part.");
-            alert.showAndWait();
+            Alerts.alertError("Please enter a name and company name (if prompted) for the part.");
         }
     }
 
