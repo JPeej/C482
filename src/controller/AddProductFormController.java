@@ -20,7 +20,7 @@ import model.Product;
 /** Controls user input to the add product screen.*/
 public class AddProductFormController implements Initializable {
 
-    Navigate nav = new Navigate();
+    Navigation nav = new Navigation();
 
     private ObservableList<Part> partsTemp = FXCollections.observableArrayList();
     @FXML
@@ -155,7 +155,7 @@ public class AddProductFormController implements Initializable {
                 newProduct.addAssociatedPart(associatedPart);
             }
             Inventory.addProduct(newProduct);
-            nav.moveScreen(event, "MainMenu");
+            nav.navigate(event, "MainMenu");
 
         } catch (NumberFormatException e) {
             Alerts.alertError("Please enter numeric values in the following fields: Inv, Price, Max, and Min");

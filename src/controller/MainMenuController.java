@@ -1,6 +1,9 @@
 package controller;
 
 import javafx.collections.ObservableList;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import model.Part;
@@ -20,7 +23,7 @@ import model.Product;
 public class MainMenuController implements Initializable {
 
     Stage stage;
-    Navigate nav = new Navigate();
+    Navigation nav = new Navigation();
 
     @FXML
     protected TableView<Part> partTableView;
@@ -57,7 +60,7 @@ public class MainMenuController implements Initializable {
      */
     @FXML
     void onActionAddPart(ActionEvent event) throws IOException {
-        nav.moveScreen(event, "AddPartForm");
+        nav.navigate(event, "AddPartForm");
     }
 
     /** Event handler for modify part button.
@@ -69,7 +72,23 @@ public class MainMenuController implements Initializable {
      */
     @FXML
     void onActionModifyPart(ActionEvent event) throws IOException {
-        nav.toModify(event, "ModifyPartForm", partTableView);
+        try {
+            String formLocation = nav.location("ModifyPartForm");
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource(formLocation));
+            loader.load();
+
+            ModifyPartFormController MDFController = loader.getController();
+            MDFController.sendPart(partTableView.getSelectionModel().getSelectedItem());
+
+            stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+            Parent scene = loader.getRoot();
+            stage.setScene(new Scene(scene));
+            stage.show();
+
+        } catch (NullPointerException e) {
+            Alerts.alertError("Please select a part first.");
+        }
     }
 
     @FXML
@@ -117,7 +136,7 @@ public class MainMenuController implements Initializable {
      */
     @FXML
     void onActionAddProduct(ActionEvent event) throws IOException {
-        nav.moveScreen(event, "AddProductForm");
+        nav.navigate(event, "AddProductForm");
     }
 
     /** Event handler for modify product button.
@@ -129,7 +148,18 @@ public class MainMenuController implements Initializable {
      */
     @FXML
     void onActionModifyProduct(ActionEvent event)  throws IOException {
-        nav.toModify(event, "ModifyProductForm", productTableView);
+        String location = "/view/ModifyProductForm.fxml";
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource(location));
+        loader.load();
+
+        ModifyProductFormController MPFController = loader.getController();
+        MPFController.sendProduct(productTableView.getSelectionModel().getSelectedItem());
+
+        stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+        Parent scene = loader.getRoot();
+        stage.setScene(new Scene(scene));
+        stage.show();
     }
 
     @FXML
