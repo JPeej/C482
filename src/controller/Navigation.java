@@ -21,6 +21,10 @@ public class Navigation {
     Stage stage;
     Parent scene;
 
+    /** Creates a full location string to use in other Navigation methods.
+     * @param formLocation form's name
+     * @return concat string of form location
+     */
     public String location(String formLocation) {
         String view = "/view/";
         String fxml = ".fxml";
@@ -28,6 +32,11 @@ public class Navigation {
         return location;
     }
 
+    /** Breaks up string provided to set title to screen.
+     * formLocation given as string with no spaces and in upper camel case.
+     * Finds capitals and inserts space before.
+     * @param formLocation
+     */
     public void setTitle(String formLocation) {
         formLocation = formLocation.replaceAll("(\\p{Ll})(\\p{Lu})","$1 $2");
         stage.setTitle(formLocation);

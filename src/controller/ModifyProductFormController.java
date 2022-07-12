@@ -60,7 +60,10 @@ public class ModifyProductFormController implements Initializable {
     @FXML
     private TextField productPriceTxt;
 
-    //TODO: Exception thrown if string isn't found.
+    /** Searches all available parts for a name or id query.
+     * Uses Search class method searchFor to display parts queried.
+     * @param event ActionEvent object holding information on the button pressed
+     */
     @FXML
     void onActionSearchParts(ActionEvent event) {
         Search.searchFor("Part", productAddPartSearch, allPartsTableView);

@@ -91,6 +91,10 @@ public class MainMenuController implements Initializable {
         }
     }
 
+    /** Controls deletion of part from the allParts list and tableview.
+     * Confirms deletion is wanted and successful.
+     * @param event ActionEvent object holding information on the button pressed
+     */
     @FXML
     void onActionDeletePart(ActionEvent event) {
         Optional<ButtonType> result = Alerts.alertConfirm("Click OK to confirm deletion of part.");
@@ -104,6 +108,10 @@ public class MainMenuController implements Initializable {
         }
     }
 
+    /** Searches all available parts for a name or id query.
+     * Uses Search class method searchFor to display parts queried.
+     * @param event ActionEvent object holding information on the button pressed
+     */
     @FXML
     void onActionSearchParts(ActionEvent event) {
         Search.searchFor("Part", partSearchBar, partTableView);
@@ -144,6 +152,11 @@ public class MainMenuController implements Initializable {
         stage.show();
     }
 
+    /** Controls deletion of product from the allProducts list and tableview.
+     * Confirms deletion is wanted and successful.
+     * Denies deletion if product has associated parts.
+     * @param event ActionEvent object holding information on the button pressed
+     */
     @FXML
     void onActionDeleteProduct(ActionEvent event) {
         Optional<ButtonType> result = Alerts.alertConfirm("Click OK to confirm deletion of product.");
@@ -158,6 +171,10 @@ public class MainMenuController implements Initializable {
         }
     }
 
+    /** Searches all available products for a name or id query.
+     * Uses Search class method searchFor to display products queried.
+     * @param event ActionEvent object holding information on the button pressed
+     */
     @FXML void onActionSearchProducts(ActionEvent event) {
         Search.searchFor("Product", productSearchBar, productTableView);
     }

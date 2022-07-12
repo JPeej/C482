@@ -144,8 +144,8 @@ public class Inventory {
         return allProducts;
     }
 
-    //The following two methods are used for adding test data.
-
+    //The following two methods were used for adding test data.
+    /*
     static {
         addTestData();
     }
@@ -158,5 +158,5 @@ public class Inventory {
         InHouse bracket = new InHouse(3, "Bracket", 5.00, 7, 3, 11, 10);
         Inventory.addPart((bracket));
     }
-
+    */
 }

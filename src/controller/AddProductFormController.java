@@ -56,7 +56,10 @@ public class AddProductFormController implements Initializable {
     @FXML
     private TextField productPriceTxt;
 
-    //TODO: Exception thrown if string isn't found.
+    /** Searches all available parts for a name or id query.
+     * Uses Search class method searchFor to display parts queried.
+     * @param event ActionEvent object holding information on the button pressed
+     */
     @FXML
     void onActionSearchParts(ActionEvent event) {
         Search.searchFor("Part", productAddPartSearch, allPartsTableView);
@@ -104,10 +107,9 @@ public class AddProductFormController implements Initializable {
     /** Event handler for save button.
      *  Saves new product to the inventory.
      * @param event ActionEvent object holding information on the button pressed
-     * @throws IOException
      */
     @FXML
-    void onActionSaveProduct(ActionEvent event) throws IOException {
+    void onActionSaveProduct(ActionEvent event) {
         try {
             int stock = Integer.parseInt(productInvTxt.getText());
             int min = Integer.parseInt(productMinTxt.getText());

@@ -6,8 +6,6 @@ import javafx.scene.Parent;
 import javafx.fxml.FXMLLoader;
 import javafx.application.Application;
 
-//TODO: Javadocs & clean up code.
-
 /** Main class for program.
  * FUTURE ENHANCEMENT - Under the Navigation class there is a method called navWithData.
  * I was trying to create a nav class that would move to either modify screen.
@@ -34,6 +32,9 @@ public class Main extends Application {
         primaryStage.show();
     }
 
+    /** Main method that starts program.
+     * @param args
+     */
     public static void main(String[] args) {launch(args);
     }
 }

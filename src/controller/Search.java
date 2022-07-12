@@ -10,9 +10,17 @@ import model.Product;
 
 import java.awt.*;
 import java.util.Locale;
-
+/** Handles all search queries.*/
 public class Search {
 
+    /** Searches parts or products by name or id.
+     * Determines if user is searching for part or product.
+     * Determines if user is searching by name or id.
+     * Returns filtered query list in table view or if not found, the original list.
+     * @param itemToSearch user provided query
+     * @param searchBar search bar being used for query
+     * @param tableToSearch table the search bar is linked to
+     */
     public static void searchFor(String itemToSearch, TextField searchBar, TableView tableToSearch) {
         try {
             String queryName = searchBar.getText();
