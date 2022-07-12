@@ -69,15 +69,13 @@ public class AddPartFormController implements Initializable {
     }
 
     /** Event handler for save button on add part menu.
-     * Parses data, checks data types,  creates part, and saves part to allParts list.
+     * Parses data, checks data types,  creates part based on radio selection, and saves part to allParts list.
      * @param event ActionEvent object holding information on the button pressed
-     * @throws IOException
      * @throws ArithmeticException
      * @throws NumberFormatException
-     * @throws Exception
      */
     @FXML
-    void onActionSavePart(ActionEvent event) throws IOException, ArithmeticException, NumberFormatException, Exception {
+    void onActionSavePart(ActionEvent event) throws  ArithmeticException, NumberFormatException {
         try {
             int stock = Integer.parseInt(partInvTxt.getText());
             int min = Integer.parseInt(partMinTxt.getText());

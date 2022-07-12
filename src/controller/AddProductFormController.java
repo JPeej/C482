@@ -102,7 +102,8 @@ public class AddProductFormController implements Initializable {
     }
 
     /** Event handler for save button.
-     *  Saves new product to the inventory.
+     *  Parses through data the user input.
+     *  Uses data to create new Product. Adds said Product to allProducts.
      * @param event ActionEvent object holding information on the button pressed
      */
     @FXML

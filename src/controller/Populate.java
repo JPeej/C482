@@ -9,6 +9,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 public class Populate {
 
     /** Populates desired table view with provided list.
+     * Parses through each object's fields to populate respective columns.
+     * Each row consists of one object.
      * @param tableToPop table view in screen to populate
      * @param list list to set to table view
      * @param id idColumn to set parsed id values

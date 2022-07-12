@@ -30,7 +30,7 @@ public class Navigation {
     /** Handles navigation for all buttons, excluding cancel buttons.
      * Creates "location" string to pass into FXMLLoader.
      * Uses casting to get information out of ActionEvent object.
-     * Uses regex to properly split "formLocation" param into a usuable title.
+     * Sets screen title.
      * Loads next screen.
      * @param event ActionEvent object holding information on the button pressed
      * @param formLocation string for fxml file name
