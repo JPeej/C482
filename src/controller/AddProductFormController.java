@@ -59,23 +59,26 @@ public class AddProductFormController implements Initializable {
     //TODO: Exception thrown if string isn't found.
     @FXML
     void onActionSearchParts(ActionEvent event) {
-        String queryName = productAddPartSearch.getText().toLowerCase(Locale.ROOT);
-        ObservableList<Part> partQueryResult = Inventory.lookupPart(queryName);
+        try {
+            String queryName = productAddPartSearch.getText().toLowerCase(Locale.ROOT);
+            ObservableList<Part> partQueryResult = Inventory.lookupPart(queryName);
 
-        if (!(partQueryResult.isEmpty())) {
-            allPartsTableView.setItems(partQueryResult);
-        }
-        else {
-            int queryId = Integer.parseInt(productAddPartSearch.getText());
-            Part result = Inventory.lookupPart(queryId);
-            if (result != null) {
-                partQueryResult.add(result);
+            if (!(partQueryResult.isEmpty())) {
                 allPartsTableView.setItems(partQueryResult);
+            } else {
+                int queryId = Integer.parseInt(productAddPartSearch.getText());
+                Part result = Inventory.lookupPart(queryId);
+                if (result != null) {
+                    partQueryResult.add(result);
+                    allPartsTableView.setItems(partQueryResult);
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.ERROR, "No parts found from query.");
+                    alert.showAndWait();
+                }
             }
-            else {
-                Alert alert = new Alert(Alert.AlertType.ERROR, "No parts found from query.");
-                alert.showAndWait();
-            }
+        } catch (NumberFormatException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "No parts found from query.");
+            alert.showAndWait();
         }
     }
 

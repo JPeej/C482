@@ -107,23 +107,26 @@ public class MainMenuController<TODO> implements Initializable {
     //TODO: Exception thrown if string isn't found.
     @FXML
     void onActionSearchParts(ActionEvent event) {
-        String queryName = partSearchBar.getText().toLowerCase(Locale.ROOT);
-        ObservableList<Part> partQueryResult = Inventory.lookupPart(queryName);
+        try {
+            String queryName = partSearchBar.getText().toLowerCase(Locale.ROOT);
+            ObservableList<Part> partQueryResult = Inventory.lookupPart(queryName);
 
-        if (!(partQueryResult.isEmpty())) {
-            partTableView.setItems(partQueryResult);
-        }
-        else {
-            int queryId = Integer.parseInt(partSearchBar.getText());
-            Part result = Inventory.lookupPart(queryId);
-            if (result != null) {
-                partQueryResult.add(result);
+            if (!(partQueryResult.isEmpty())) {
                 partTableView.setItems(partQueryResult);
+            } else {
+                int queryId = Integer.parseInt(partSearchBar.getText());
+                Part result = Inventory.lookupPart(queryId);
+                if (result != null) {
+                    partQueryResult.add(result);
+                    partTableView.setItems(partQueryResult);
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.ERROR, "No parts found from query.");
+                    alert.showAndWait();
+                }
             }
-            else {
-                Alert alert = new Alert(Alert.AlertType.ERROR, "No parts found from query.");
-                alert.showAndWait();
-            }
+        } catch (NumberFormatException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "No parts found from query.");
+            alert.showAndWait();
         }
     }
 
@@ -171,12 +174,9 @@ public class MainMenuController<TODO> implements Initializable {
             Product productToDelete = productTableView.getSelectionModel().getSelectedItem();
             if (productToDelete.getAllAssociatedParts().isEmpty()) {
                 Inventory.deleteProduct(productToDelete);
-            } else {
+            } 
+            else {
                 Alert notDeleted = new Alert(Alert.AlertType.ERROR, "Product not deleted. Remove all associated parts.");
-                notDeleted.showAndWait();
-            }
-            if (Inventory.getAllProducts().contains(productToDelete)) {
-                Alert notDeleted = new Alert(Alert.AlertType.ERROR, "Product not deleted.");
                 notDeleted.showAndWait();
             }
         }
@@ -184,22 +184,26 @@ public class MainMenuController<TODO> implements Initializable {
 
     //TODO: Exception thrown if string isn't found.
     @FXML void onActionSearchProducts(ActionEvent event) {
-        String queryName = productSearchBar.getText().toLowerCase(Locale.ROOT);
-        ObservableList<Product> productQueryResult = Inventory.lookupProduct(queryName);
+        try {
+            String queryName = productSearchBar.getText().toLowerCase(Locale.ROOT);
+            ObservableList<Product> productQueryResult = Inventory.lookupProduct(queryName);
 
-        if (!(productQueryResult.isEmpty())) {
-            productTableView.setItems(productQueryResult);
-        }
-        else {
-            int queryId = Integer.parseInt(productSearchBar.getText());
-            Product result = Inventory.lookupProduct(queryId);
-            if (result != null) {
-                productQueryResult.add(result);
+            if (!(productQueryResult.isEmpty())) {
                 productTableView.setItems(productQueryResult);
             } else {
-                Alert alert = new Alert(Alert.AlertType.ERROR, "No products found from query.");
-                alert.showAndWait();
+                int queryId = Integer.parseInt(productSearchBar.getText());
+                Product result = Inventory.lookupProduct(queryId);
+                if (result != null) {
+                    productQueryResult.add(result);
+                    productTableView.setItems(productQueryResult);
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.ERROR, "No products found from query.");
+                    alert.showAndWait();
+                }
             }
+        } catch (NumberFormatException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "No products found from query.");
+            alert.showAndWait();
         }
     }
 
