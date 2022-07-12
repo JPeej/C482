@@ -50,7 +50,7 @@
                 <ToggleGroup fx:id="partRadioGroup" />
             </toggleGroup></RadioButton>
         <RadioButton fx:id="outsourcedRadio" layoutX="332.0" layoutY="54.0" mnemonicParsing="false" onAction="#onActionOutsourced" text="Outsourced" toggleGroup="$partRadioGroup" />
-        <Label layoutX="25.0" layoutY="54.0" text="Add Part">
+        <Label layoutX="25.0" layoutY="54.0" text="Modify Part">
             <font>
                 <Font name="System Bold" size="12.0" />
             </font>

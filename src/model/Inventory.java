@@ -1,10 +1,8 @@
 package model;
 
+import java.util.Locale;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.Alert;
-
-import java.util.Locale;
 
 /** Manages all Parts and Products within the company. */
 public class Inventory {
@@ -16,6 +14,10 @@ public class Inventory {
 
     /** Gets the static partId field to autopopulate part Ids.
      * Post increments the static partId field.
+     * RUNTIME ERROR - For some reason I had the return line read as, "return partId++".
+     * I was having issues with ID autopopulation as it was incrementing by 3.
+     * I used the debugger and a watcher to find the logic bug.
+     * The same occurred for populateProductId.
      * @return int partId for use in part creation
      */
     public static int populatePartId() {
@@ -140,8 +142,8 @@ public class Inventory {
         return allProducts;
     }
 
-    //The following two methods are used for adding test data.
-
+    //The following two methods were used for adding test data.
+    /*
     static {
         addTestData();
     }
@@ -154,5 +156,5 @@ public class Inventory {
         InHouse bracket = new InHouse(3, "Bracket", 5.00, 7, 3, 11, 10);
         Inventory.addPart((bracket));
     }
-
+    */
 }

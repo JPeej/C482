@@ -1,16 +1,16 @@
 package controller;
 
+import model.Part;
 import java.net.URL;
+import model.InHouse;
+import model.Inventory;
 import javafx.fxml.FXML;
+import model.Outsourced;
 import java.io.IOException;
 import javafx.scene.control.*;
 import javafx.event.ActionEvent;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
-import model.InHouse;
-import model.Inventory;
-import model.Outsourced;
-import model.Part;
 
 /** Controls user input to modify part screen.*/
 public class ModifyPartFormController implements Initializable {
@@ -71,21 +71,19 @@ public class ModifyPartFormController implements Initializable {
     }
 
     /** Saves changes to part.
-     * Parses data that has been input from user.
-     * Creates new Part object with data and inserts into original Parts index in allParts.
+     * Parses data, checks data types, and creates part based on radio selection.
+     * Inserts into original Parts index in allParts.
      * @param event ActionEvent object holding information on the button pressed
-     * @throws IOException
      * @throws ArithmeticException
      * @throws NumberFormatException
-     * @throws Exception
      */
     @FXML
-    void onActionSavePart(ActionEvent event)  throws IOException, ArithmeticException, NumberFormatException, Exception {
+    void onActionSavePart(ActionEvent event)  throws ArithmeticException, NumberFormatException {
         try {
             int stock = Integer.parseInt(partInvTxt.getText());
             int min = Integer.parseInt(partMinTxt.getText());
             int max = Integer.parseInt(partMaxTxt.getText());
-            if (stock < min || stock > max) {
+            if (stock < min || stock > max || min > max) {
                 throw new ArithmeticException();
             }
 
@@ -113,25 +111,12 @@ public class ModifyPartFormController implements Initializable {
             nav.navigate(event, "MainMenu");
 
         } catch (NumberFormatException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR, "Please enter numeric values in the following fields: Inv, Price, Max, Min, and MachineID (if prompted).");
-            alert.showAndWait();
+            Alerts.alertError("Numeric values in fields: Inv, Price, Max, Min, and MachineID (if prompted). Decimal value in price field.");
         } catch (ArithmeticException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR, "Inventory stock amount must be between the min and max values.");
-            alert.showAndWait();
+            Alerts.alertError("Min must be smaller than inv and inv must be smaller than max.");
         } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR, "Please enter a name and company name (if prompted) for the part.");
-            alert.showAndWait();
+            Alerts.alertError("Please enter a name and company name (if prompted) for the part.");
         }
-    }
-
-    /** Initializes controller for use once root element has been set.
-     * Override for Initializable class initialize method.
-     * First method called for controller when screen is loaded.
-     * @param url location used for the root to find relative paths
-     * @param resourceBundle resources to find root object
-     */
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
     }
 
     /** Parses through data of Part object to populate UI of modify part screen.
@@ -159,4 +144,16 @@ public class ModifyPartFormController implements Initializable {
 
         index = Inventory.getAllParts().indexOf(part);
     }
+
+    /** Initializes controller for use once root element has been set.
+     * Override for Initializable class initialize method.
+     * First method called for controller when screen is loaded.
+     * @param url location used for the root to find relative paths
+     * @param resourceBundle resources to find root object
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+    }
+
+
 }

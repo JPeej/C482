@@ -4,8 +4,7 @@ package model;
  * Supplied class Part.java
  */
 
-/**
- *
+/** Supplied class Part.java
  * @author Joshua Perry
  */
 public abstract class Part {

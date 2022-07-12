@@ -1,29 +1,25 @@
 package controller;
 
+import model.Part;
 import java.net.URL;
-
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import model.Product;
+import model.Inventory;
 import javafx.fxml.FXML;
+import java.util.Optional;
 import java.io.IOException;
+import javafx.scene.control.*;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.cell.PropertyValueFactory;
-import model.Inventory;
-import model.Part;
-import model.Product;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 /** Controls user input to the add product screen.*/
 public class AddProductFormController implements Initializable {
 
     Navigation nav = new Navigation();
-
     private ObservableList<Part> partsTemp = FXCollections.observableArrayList();
+
     @FXML
     private TableView<Part> allPartsTableView;
     @FXML
@@ -57,6 +53,15 @@ public class AddProductFormController implements Initializable {
     @FXML
     private TextField productPriceTxt;
 
+    /** Searches all available parts for a name or id query.
+     * Uses Search class method searchFor to display parts queried.
+     * @param event ActionEvent object holding information on the button pressed
+     */
+    @FXML
+    void onActionSearchParts(ActionEvent event) {
+        Search.searchFor("Part", productAddPartSearch, allPartsTableView);
+    }
+
     /** Adds part to temp associated parts list.
      * Updates associated parts table view.
      * @param event ActionEvent object holding information on the button pressed
@@ -65,11 +70,7 @@ public class AddProductFormController implements Initializable {
     void onActionAddAssocPart(ActionEvent event) {
         Part selectedPart = allPartsTableView.getSelectionModel().getSelectedItem();
         partsTemp.add(selectedPart);
-        assocPartsTableView.setItems(partsTemp);
-        assocPartIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
-        assocPartInvCol.setCellValueFactory(new PropertyValueFactory<>("stock"));
-        assocPartNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
-        assocPartPriceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
+        Populate.tableView(assocPartsTableView, partsTemp, assocPartIdCol, assocPartInvCol, assocPartNameCol, assocPartPriceCol);
     }
 
     /** Removes part from temp associated parts list.
@@ -79,13 +80,12 @@ public class AddProductFormController implements Initializable {
      */
     @FXML
     void onActionRemoveAssocPart(ActionEvent event) {
-        Part selectedPart = assocPartsTableView.getSelectionModel().getSelectedItem();
-        partsTemp.remove(selectedPart);
-        assocPartsTableView.setItems(partsTemp);
-        assocPartIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
-        assocPartInvCol.setCellValueFactory(new PropertyValueFactory<>("stock"));
-        assocPartNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
-        assocPartPriceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
+        Optional<ButtonType> result = Alerts.alertConfirm("Click OK to confirm removal of part.");
+        if(result.get() == ButtonType.OK) {
+            Part selectedPart = assocPartsTableView.getSelectionModel().getSelectedItem();
+            partsTemp.remove(selectedPart);
+            Populate.tableView(assocPartsTableView, partsTemp, assocPartIdCol, assocPartInvCol, assocPartNameCol, assocPartPriceCol);
+        }
     }
 
     /** Event handler for cancel button.
@@ -102,17 +102,17 @@ public class AddProductFormController implements Initializable {
     }
 
     /** Event handler for save button.
-     *  Saves new product to the inventory.
+     *  Parses through data the user input.
+     *  Uses data to create new Product. Adds said Product to allProducts.
      * @param event ActionEvent object holding information on the button pressed
-     * @throws IOException
      */
     @FXML
-    void onActionSaveProduct(ActionEvent event) throws IOException {
+    void onActionSaveProduct(ActionEvent event) {
         try {
             int stock = Integer.parseInt(productInvTxt.getText());
             int min = Integer.parseInt(productMinTxt.getText());
             int max = Integer.parseInt(productMaxTxt.getText());
-            if (stock < min || stock > max) {
+            if (stock < min || stock > max || min > max) {
                 throw new ArithmeticException();
             }
 
@@ -132,14 +132,11 @@ public class AddProductFormController implements Initializable {
             nav.navigate(event, "MainMenu");
 
         } catch (NumberFormatException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR, "Please enter numeric values in the following fields: Inv, Price, Max, Min, and MachineID (if prompted).");
-            alert.showAndWait();
+            Alerts.alertError("Numeric values in fields: Inv, Price, Max, and Min. Decimal value in price field.");
         } catch (ArithmeticException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR, "Inventory stock amount must be between the min and max values.");
-            alert.showAndWait();
+            Alerts.alertError("Min must be smaller than inv and inv must be smaller than max.");
         } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR, "Please enter a name and company name (if prompted) for the part.");
-            alert.showAndWait();
+            Alerts.alertError("Please enter a name for the product.");
         }
     }
 
@@ -151,10 +148,6 @@ public class AddProductFormController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        allPartsTableView.setItems(Inventory.getAllParts());
-        allPartIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
-        allPartNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
-        allPartInvCol.setCellValueFactory(new PropertyValueFactory<>("stock"));
-        allPartPriceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
+        Populate.tableView(allPartsTableView, Inventory.getAllParts(), allPartIdCol, allPartInvCol, allPartNameCol, allPartPriceCol);
     }
 }
