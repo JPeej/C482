@@ -119,6 +119,7 @@ public class MainMenuController implements Initializable {
 
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
         Parent scene = loader.getRoot();
+        stage.setTitle("ModifyProductForm");
         stage.setScene(new Scene(scene));
         stage.show();
     }
