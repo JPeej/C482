@@ -27,16 +27,6 @@ public class Navigation {
         return location;
     }
 
-    /** Breaks up string provided to set title to screen.
-     * formLocation given as string with no spaces and in upper camel case.
-     * Finds capitals and inserts space before.
-     * @param formLocation
-     */
-    public void setTitle(String formLocation) {
-        formLocation = formLocation.replaceAll("(\\p{Ll})(\\p{Lu})","$1 $2");
-        stage.setTitle(formLocation);
-    }
-
     /** Handles navigation for all buttons, excluding cancel buttons.
      * Creates "location" string to pass into FXMLLoader.
      * Uses casting to get information out of ActionEvent object.
@@ -50,7 +40,7 @@ public class Navigation {
         String location = location(formLocation);
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource(location));
-        setTitle(location);
+        stage.setTitle(formLocation);
         stage.setScene(new Scene(scene));
         stage.show();
     }
