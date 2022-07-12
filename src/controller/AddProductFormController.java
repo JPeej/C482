@@ -59,25 +59,7 @@ public class AddProductFormController implements Initializable {
     //TODO: Exception thrown if string isn't found.
     @FXML
     void onActionSearchParts(ActionEvent event) {
-        try {
-            String queryName = productAddPartSearch.getText().toLowerCase(Locale.ROOT);
-            ObservableList<Part> partQueryResult = Inventory.lookupPart(queryName);
-
-            if (!(partQueryResult.isEmpty())) {
-                allPartsTableView.setItems(partQueryResult);
-            } else {
-                int queryId = Integer.parseInt(productAddPartSearch.getText());
-                Part result = Inventory.lookupPart(queryId);
-                if (result != null) {
-                    partQueryResult.add(result);
-                    allPartsTableView.setItems(partQueryResult);
-                } else {
-                    Alerts.alertError("No parts found from query.");
-                }
-            }
-        } catch (NumberFormatException e) {
-            Alerts.alertError("No parts found from query.");
-        }
+        Search.searchFor("Part", productAddPartSearch, allPartsTableView);
     }
 
     /** Adds part to temp associated parts list.

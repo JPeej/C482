@@ -106,25 +106,7 @@ public class MainMenuController implements Initializable {
 
     @FXML
     void onActionSearchParts(ActionEvent event) {
-        try {
-            String queryName = partSearchBar.getText().toLowerCase(Locale.ROOT);
-            ObservableList<Part> partQueryResult = Inventory.lookupPart(queryName);
-
-            if (!(partQueryResult.isEmpty())) {
-                partTableView.setItems(partQueryResult);
-            } else {
-                int queryId = Integer.parseInt(partSearchBar.getText());
-                Part result = Inventory.lookupPart(queryId);
-                if (result != null) {
-                    partQueryResult.add(result);
-                    partTableView.setItems(partQueryResult);
-                } else {
-                    Alerts.alertError("No parts found from query.");
-                }
-            }
-        } catch (NumberFormatException e) {
-            Alerts.alertError("No parts found from query.");
-        }
+        Search.searchFor("Part", partSearchBar, partTableView);
     }
 
     /** Event handler for add product button, opens add product screen.
@@ -177,25 +159,7 @@ public class MainMenuController implements Initializable {
     }
 
     @FXML void onActionSearchProducts(ActionEvent event) {
-        try {
-            String queryName = productSearchBar.getText().toLowerCase(Locale.ROOT);
-            ObservableList<Product> productQueryResult = Inventory.lookupProduct(queryName);
-
-            if (!(productQueryResult.isEmpty())) {
-                productTableView.setItems(productQueryResult);
-            } else {
-                int queryId = Integer.parseInt(productSearchBar.getText());
-                Product result = Inventory.lookupProduct(queryId);
-                if (result != null) {
-                    productQueryResult.add(result);
-                    productTableView.setItems(productQueryResult);
-                } else {
-                    Alerts.alertError("No products found from query.");
-                }
-            }
-        } catch (NumberFormatException e) {
-            Alerts.alertError("No products found from query.");
-        }
+        Search.searchFor("Product", productSearchBar, productTableView);
     }
 
     /** Properly closes running program.
