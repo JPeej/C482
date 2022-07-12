@@ -19,6 +19,7 @@ import model.Product;
 /** Controls user input to the main menu screen.*/
 public class MainMenuController implements Initializable {
 
+    Stage stage;
     Navigate nav = new Navigate();
 
     @FXML
@@ -46,6 +47,7 @@ public class MainMenuController implements Initializable {
     @FXML
     private TextField productSearchBar;
 
+
     /** Event handler for add part button, opens add part screen.
      * Add part button will pass ActionEvent object that is created when the button is pressed.
      * Calls button method via Navigation object. Passes event and string, "AddPartForm", for FXMLLoader to use.
@@ -72,7 +74,15 @@ public class MainMenuController implements Initializable {
 
     @FXML
     void onActionDeletePart(ActionEvent event) {
-        deletion("Part");
+        Optional<ButtonType> result = Alerts.alertConfirm("Click OK to confirm deletion of part.");
+        if(result.get() == ButtonType.OK) {
+            Part partToDelete = partTableView.getSelectionModel().getSelectedItem();
+            Inventory.deletePart(partToDelete);
+
+            if (Inventory.getAllParts().contains(partToDelete)) {
+                Alerts.alertError("Part not deleted.");
+            }
+        }
     }
 
     @FXML
@@ -124,7 +134,16 @@ public class MainMenuController implements Initializable {
 
     @FXML
     void onActionDeleteProduct(ActionEvent event) {
-        deletion("Product");
+        Optional<ButtonType> result = Alerts.alertConfirm("Click OK to confirm deletion of product.");
+        if(result.get() == ButtonType.OK) {
+            Product productToDelete = productTableView.getSelectionModel().getSelectedItem();
+            if (productToDelete.getAllAssociatedParts().isEmpty()) {
+                Inventory.deleteProduct(productToDelete);
+            }
+            else {
+                Alerts.alertError("Product not deleted. Remove all associated parts.");
+            }
+        }
     }
 
     @FXML void onActionSearchProducts(ActionEvent event) {
@@ -156,28 +175,6 @@ public class MainMenuController implements Initializable {
     @FXML
     void onActionExitProgram(ActionEvent event) {
         System.exit(0);
-    }
-
-    public void deletion(String item) {
-        Optional<ButtonType> result = Alerts.alertConfirm("Click OK to confirm deletion.");
-        if(result.get() == ButtonType.OK) {
-            if (item.equals("Product")) {
-                Product productToDelete = productTableView.getSelectionModel().getSelectedItem();
-                if (productToDelete.getAllAssociatedParts().isEmpty()) {
-                    Inventory.deleteProduct(productToDelete);
-                }
-                else {
-                    Alerts.alertError("Product not deleted. Remove all associated parts.");
-                }
-            }
-            else if (item.equals("Part")) {
-                Part partToDelete = partTableView.getSelectionModel().getSelectedItem();
-                Inventory.deletePart(partToDelete);
-                if (Inventory.getAllParts().contains(partToDelete)) {
-                    Alerts.alertError("Part not deleted.");
-                }
-            }
-        }
     }
 
     /** Initializes controller for use once a main menu screen is instantiated.
