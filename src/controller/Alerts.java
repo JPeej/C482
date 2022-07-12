@@ -4,6 +4,7 @@ import java.util.Optional;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 
+/** Handles all alerts within program.*/
 public class Alerts {
 
     /** Produces an error alert for the user.

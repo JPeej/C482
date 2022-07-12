@@ -109,19 +109,23 @@ public class MainMenuController implements Initializable {
      */
     @FXML
     void onActionModifyProduct(ActionEvent event)  throws IOException {
-        String location = "/view/ModifyProductForm.fxml";
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource(location));
-        loader.load();
+        try {
+            String location = "/view/ModifyProductForm.fxml";
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource(location));
+            loader.load();
 
-        ModifyProductFormController MPFController = loader.getController();
-        MPFController.sendProduct(productTableView.getSelectionModel().getSelectedItem());
+            ModifyProductFormController MPFController = loader.getController();
+            MPFController.sendProduct(productTableView.getSelectionModel().getSelectedItem());
 
-        stage = (Stage)((Button)event.getSource()).getScene().getWindow();
-        Parent scene = loader.getRoot();
-        stage.setTitle("ModifyProductForm");
-        stage.setScene(new Scene(scene));
-        stage.show();
+            stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+            Parent scene = loader.getRoot();
+            stage.setTitle("ModifyProductForm");
+            stage.setScene(new Scene(scene));
+            stage.show();
+        } catch (NullPointerException e) {
+            Alerts.alertError("Please select a product first.");
+        }
     }
 
     /** Controls deletion of part from the allParts list and tableview.
