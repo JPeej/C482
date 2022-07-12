@@ -92,11 +92,7 @@ public class ModifyProductFormController implements Initializable {
     void onActionAddAssocPart(ActionEvent event) {
         Part selectedPart = allPartsTableView.getSelectionModel().getSelectedItem();
         partsTemp.add(selectedPart);
-        assocPartsTableView.setItems(partsTemp);
-        assocPartIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
-        assocPartInvCol.setCellValueFactory(new PropertyValueFactory<>("stock"));
-        assocPartNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
-        assocPartPriceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
+        Populate.tableView(assocPartsTableView, partsTemp, assocPartIdCol, assocPartInvCol, assocPartNameCol, assocPartPriceCol);
     }
 
     /** Removes part from temp associated parts list.
@@ -110,11 +106,7 @@ public class ModifyProductFormController implements Initializable {
         if(result.get() == ButtonType.OK) {
             Part selectedPart = assocPartsTableView.getSelectionModel().getSelectedItem();
             partsTemp.remove(selectedPart);
-            assocPartsTableView.setItems(partsTemp);
-            assocPartIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
-            assocPartInvCol.setCellValueFactory(new PropertyValueFactory<>("stock"));
-            assocPartNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
-            assocPartPriceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
+            Populate.tableView(assocPartsTableView, partsTemp, assocPartIdCol, assocPartInvCol, assocPartNameCol, assocPartPriceCol);
         }
     }
 
@@ -183,17 +175,8 @@ public class ModifyProductFormController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        allPartsTableView.setItems(Inventory.getAllParts());
-        allPartIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
-        allPartNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
-        allPartInvCol.setCellValueFactory(new PropertyValueFactory<>("stock"));
-        allPartPriceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
-
-        assocPartsTableView.setItems(partsTemp);
-        assocPartIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
-        assocPartNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
-        assocPartInvCol.setCellValueFactory(new PropertyValueFactory<>("stock"));
-        assocPartPriceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
+        Populate.tableView(allPartsTableView, Inventory.getAllParts(), allPartIdCol, allPartInvCol, allPartNameCol, allPartPriceCol);
+        Populate.tableView(assocPartsTableView, partsTemp, assocPartIdCol, assocPartInvCol, assocPartNameCol, assocPartPriceCol);
     }
 
     /** Parses through data of Product object to populate UI of modify product screen.

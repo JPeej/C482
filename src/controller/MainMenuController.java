@@ -214,17 +214,7 @@ public class MainMenuController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        partTableView.setItems(Inventory.getAllParts());
-        partIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
-        partNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
-        partStockCol.setCellValueFactory(new PropertyValueFactory<>("stock"));
-        partPriceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
-
-        productTableView.setItems(Inventory.getAllProducts());
-        productIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
-        productNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
-        productStockCol.setCellValueFactory(new PropertyValueFactory<>("stock"));
-        productPriceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
-
+        Populate.tableView(partTableView, Inventory.getAllParts(), partIdCol, partStockCol, partNameCol, partPriceCol);
+        Populate.tableView(productTableView, Inventory.getAllProducts(), productIdCol, productStockCol, productNameCol, productPriceCol);
     }
 }
